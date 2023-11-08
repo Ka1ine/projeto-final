@@ -1,7 +1,7 @@
 package turismo.views;
 import java.util.List;
 import turismo.controllers.TurismoController;
-import turismo.models.PacoteViagem;
+import turismo.models.Pacotes.*;
 
 public class TurismoViewImpl implements TurismoView {
     private TurismoController bibliotecaController;
@@ -11,7 +11,7 @@ public class TurismoViewImpl implements TurismoView {
     }
 
     @Override
-    public void mostrarViagensDisponiveis(List<PacoteViagem> viagens) {
+    public void mostrarViagensDisponiveis(List<Pacote> viagens) {
         // Implementação da exibição de itens disponíveis
     }
 
