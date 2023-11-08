@@ -3,10 +3,8 @@ package turismo.models.Pacotes;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import turismo.models.Destino;
-
 //Classe base para todos os pacotes, inclui atrações e acomodação
-public class Pacote {
+public class Pacote implements Reservavel{
     private Destino destino;
     private ArrayList<LocalDate> datasDisp;
     private int duracao;
