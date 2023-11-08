@@ -78,7 +78,7 @@ public class TurismoMain {
 
             switch (opcaoViagens) {
                 case 1:
-                    viagensDisponiveis(scanner, turismoView);
+                    pacotesDisponiveis(scanner, turismoView);
                     break;
                 case 2:
                     reservas(scanner);
@@ -94,13 +94,13 @@ public class TurismoMain {
         }
     }
 
-    private static void viagensDisponiveis(Scanner scanner, TurismoView turismoView) {
+    private static void pacotesDisponiveis(Scanner scanner, TurismoView turismoView) {
         List<PacoteViagem> viagens = turismoController.consultarViagensDisponiveis();
         turismoView.mostrarViagensDisponiveis(viagens);
         while (true) {
             System.out.println("---- Detalhes ----");
             System.out.println();
-            System.out.println("1. Detalhar viagem");
+            System.out.println("1. Detalhar pacote");
             System.out.println("2. Voltar");
             System.out.println();
             System.out.println();
