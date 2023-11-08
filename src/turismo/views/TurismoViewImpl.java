@@ -1,19 +1,17 @@
-package biblioteca.views;
-
+package turismo.views;
 import java.util.List;
+import turismo.controllers.TurismoController;
+import turismo.models.PacoteViagem;
 
-import biblioteca.controllers.BibliotecaController;
-import biblioteca.models.ItemMultimidia;
+public class TurismoViewImpl implements TurismoView {
+    private TurismoController bibliotecaController;
 
-public class BibliotecaViewImpl implements BibliotecaView {
-    private BibliotecaController bibliotecaController;
-
-    public BibliotecaViewImpl(BibliotecaController controller) {
+    public TurismoViewImpl(TurismoController controller) {
         bibliotecaController = controller;
     }
 
     @Override
-    public void mostrarItensDisponiveis(List<ItemMultimidia> itens) {
+    public void mostrarViagensDisponiveis(List<PacoteViagem> viagens) {
         // Implementação da exibição de itens disponíveis
     }
 

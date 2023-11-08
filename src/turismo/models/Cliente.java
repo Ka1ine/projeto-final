@@ -1,6 +1,6 @@
-package biblioteca.models;
+package turismo.models;
 
-public interface Membro {
+public interface Cliente {
     String getNome();
     String getIdentificacao();
     int getLimiteEmprestimo();
