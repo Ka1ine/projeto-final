@@ -24,7 +24,7 @@ public class TurismoMain {
         while (true) {
             System.out.println("---- Menu Turismo ----");
             System.out.println();
-            System.out.println("1. Gerenciamento de Viagens");
+            System.out.println("1. Viagens");
             System.out.println("2. Gerenciamento de Clientes");
             System.out.println("3. Geração de Relatórios e Estatísticas");
             System.out.println("4. Administração de Funcionários");
@@ -38,7 +38,7 @@ public class TurismoMain {
 
             switch (opcao) {
                 case 1:
-                    menuGerenciamentoViagens(scanner, turismoView);
+                    menuViagens(scanner, turismoView);
                     break;
                 case 2:
                     menuGerenciamentoClientes(scanner, clienteView);
@@ -61,18 +61,14 @@ public class TurismoMain {
         }
     }
 
-    private static void menuGerenciamentoViagens(Scanner scanner, TurismoView turismoView) {
+    private static void menuViagens(Scanner scanner, TurismoView turismoView) {
         while (true) {
-            System.out.println("---- Menu Gerenciamento de Viagens ----");
+            System.out.println("---- Viagens ----");
             System.out.println();
-            System.out.println("1. Listar Viagens Disponíveis");
-            System.out.println("2. Adicionar Viagem");
-            System.out.println("3. Editar Viagem");
-            System.out.println("4. Remover Viagem");
-            System.out.println("5. Empréstimo de Itens");
-            System.out.println("6. Renovação de Empréstimos");
-            System.out.println("7. Reservas de Viagens");
-            System.out.println("8. Voltar");
+            System.out.println("1. Viagens disponíveis");
+            System.out.println("2. Reservas");
+            System.out.println("3. Gerenciamento de Viagens");
+            System.out.println("4. Voltar");
             System.out.println();
             System.out.println();
             System.out.print("Escolha uma opção: ");
@@ -82,28 +78,112 @@ public class TurismoMain {
 
             switch (opcaoViagens) {
                 case 1:
-                    List<PacoteViagem> viagens = turismoController.consultarViagensDisponiveis();
-                    turismoView.mostrarViagensDisponiveis(viagens);
+                    viagensDisponiveis(scanner, turismoView);
                     break;
                 case 2:
-                    adicionarViagem(scanner);
+                    reservas(scanner);
                     break;
                 case 3:
-                    editarViagem(scanner);
+                    gerenciamentoViagens(scanner);
                     break;
                 case 4:
-                    removerViagem(scanner);
+                    return;
+                default:
+                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+            }
+        }
+    }
+
+    private static void viagensDisponiveis(Scanner scanner, TurismoView turismoView) {
+        List<PacoteViagem> viagens = turismoController.consultarViagensDisponiveis();
+        turismoView.mostrarViagensDisponiveis(viagens);
+        while (true) {
+            System.out.println("---- Detalhes ----");
+            System.out.println();
+            System.out.println("1. Detalhar viagem");
+            System.out.println("2. Voltar");
+            System.out.println();
+            System.out.println();
+            System.out.print("Escolha uma opção: ");
+
+            int opcaoViagens = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcaoViagens) {
+                case 1:
+                    // detalhar();
+                    break;
+                case 2:
+                    return;
+                default:
+                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+            }
+        }
+    }
+
+    private static void reservas(Scanner scanner) {
+        while (true) {
+            System.out.println("---- Reservas ----");
+            System.out.println();
+            System.out.println("1. Acessar reserva");
+            System.out.println("2. Nova reserva");
+            System.out.println("3. Editar reserva");
+            System.out.println("4. Remover reserva");
+            System.out.println("5. Voltar");
+            System.out.println();
+            System.out.println();
+            System.out.print("Escolha uma opção: ");
+
+            int opcaoViagens = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcaoViagens) {
+                case 1:
+                    //acessar reserva
+                    break;
+                case 2:
+                    //criar reserva
+                    break;
+                case 3:
+                    // editar reserva
+                    break;
+                case 4:
+                    // remover reserva
                     break;
                 case 5:
-                    realizarEmprestimo(scanner);
+                    return;
+                default:
+                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+            }
+        }
+    }    
+
+    private static void gerenciamentoViagens(Scanner scanner) {
+        while (true) {
+            System.out.println("---- Gerenciamento de viagens ----");
+            System.out.println();
+            System.out.println("1. Adicionar viagem");
+            System.out.println("2. Editar viagem");
+            System.out.println("3. Remover viagem");
+            System.out.println("4. Voltar");
+            System.out.println();
+            System.out.println();
+            System.out.print("Escolha uma opção: ");
+
+            int opcaoViagens = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcaoViagens) {
+                case 1:
+                    // Adicionar viagem
                     break;
-                case 6:
-                    realizarRenovacao(scanner);
+                case 2:
+                    // Editar viagem
                     break;
-                case 7:
-                    fazerReserva(scanner);
+                case 3:
+                    // Remover viagem
                     break;
-                case 8:
+                case 4:
                     return;
                 default:
                     System.out.println("Opção inválida. Por favor, escolha novamente.");
