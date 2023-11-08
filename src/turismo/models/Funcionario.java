@@ -1,4 +1,4 @@
-package biblioteca.models;
+package turismo.models;
 
 import java.time.LocalDate;
 

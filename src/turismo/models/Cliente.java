@@ -1,15 +1,5 @@
-<<<<<<< Updated upstream
-package turismo.models;
 
-public interface Cliente {
-    String getNome();
-    String getIdentificacao();
-    int getLimiteEmprestimo();
-    int getPrazoEmprestimo();
-    double getMultaAtraso();
-}
-=======
-package biblioteca.models;
+package turismo.models;
 
 import java.time.LocalDate;
 
@@ -18,4 +8,3 @@ public class Cliente extends Usuario {
         super(nome, documento, id, telefone, email, aniversario);
     }
 }
->>>>>>> Stashed changes
