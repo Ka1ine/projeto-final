@@ -1,4 +1,4 @@
-package turismo.models;
+package turismo.models.Pessoas;
 
 
 import java.time.LocalDate;

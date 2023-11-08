@@ -1,4 +1,4 @@
-package turismo.models;
+package turismo.models.Pacotes;
 
 public interface PacoteViagem {
     String getTitulo();
