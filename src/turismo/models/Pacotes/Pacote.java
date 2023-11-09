@@ -3,49 +3,62 @@ package turismo.models.Pacotes;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import turismo.models.Adm.Reserva;
+
 //Classe base para todos os pacotes, inclui atrações e acomodação
 public class Pacote implements Reservavel{
     private Destino destino;
-    private ArrayList<LocalDate> datasDisp;
+    private LocalDate dataDisp;
     private int duracao;
     private int preco;
-    private String atividades;
+    private ArrayList<atrativos> atrativos;
+    
     private String hotel;
     private CategoriaViagem categoria;
+    private ArrayList<Reserva<Reservavel>> reservas;
+    private int maxReservas;
     
     //Construtor
-    public Pacote(Destino destino, ArrayList<LocalDate> datasDisp, int duracao, int preco, String atividades,
-            String hotel, CategoriaViagem categoria) {
+    public Pacote(Destino destino, LocalDate dataDisp, int duracao, int preco, ArrayList<atrativos> atrativos,
+    String hotel, CategoriaViagem categoria, int maxReservas) {
         this.destino = destino;
-        this.datasDisp = datasDisp;
+        this.dataDisp = dataDisp;
         this.duracao = duracao;
         this.preco = preco;
-        this.atividades = atividades;
+        this.atrativos = atrativos;
         this.hotel = hotel;
         this.categoria = categoria;
+        this.maxReservas = maxReservas;
+        this.reservas = new ArrayList<>();
     }
-    //Getters e Setters
+    //Getters e Setters    
+    public ArrayList<atrativos> getAtrativos() {
+        return atrativos;
+    }
 
+    public void setAtrativos(ArrayList<atrativos> atrativos) {
+        this.atrativos = atrativos;
+    }
     public Destino getDestino() {
         return destino;
     }
-
+    
     public void setDestino(Destino destino) {
         this.destino = destino;
     }
 
-    public ArrayList<LocalDate> getDatasDisp() {
-        return datasDisp;
+    public LocalDate getDataDisp() {
+        return dataDisp;
     }
-
-    public void setDatasDisp(ArrayList<LocalDate> datasDisp) {
-        this.datasDisp = datasDisp;
+    
+    public void setDatasDisp(LocalDate dataDisp) {
+        this.dataDisp = dataDisp;
     }
 
     public int getDuracao() {
         return duracao;
     }
-
+    
     public void setDuracao(int duracao) {
         this.duracao = duracao;
     }
@@ -57,15 +70,6 @@ public class Pacote implements Reservavel{
     public void setPreco(int preco) {
         this.preco = preco;
     }
-
-    public String getAtividades() {
-        return atividades;
-    }
-
-    public void setAtividades(String atividades) {
-        this.atividades = atividades;
-    }
-
     public String getHotel() {
         return hotel;
     }
@@ -81,10 +85,28 @@ public class Pacote implements Reservavel{
     public void setCategoria(CategoriaViagem categoria) {
         this.categoria = categoria;
     }
+    public ArrayList<Reserva<Reservavel>> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(ArrayList<Reserva<Reservavel>> reservas) {
+        this.reservas = reservas;
+    }    
+    public int getMaxReservas() {
+        return maxReservas;
+    }
+
+    public void setMaxReservas(int maxReservas) {
+        this.maxReservas = maxReservas;
+    }    
     
-    
+    //enum
     public enum CategoriaViagem{
         AVENTURA, CULTURA, RELAXAMENTO, ROMANTICO, ECOTURISMO, RELIGIOSO
+    }
+
+    public enum atrativos{
+        piscina, passeio_guiado, pensao_completa, spa, pet_friendly 
     }
 }
 

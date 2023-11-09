@@ -7,15 +7,17 @@ import java.util.ArrayList;
 public class PacoteTransporte extends Pacote{
     private String origem;
     private MetodoTransporte metodo;
-
     //Construtor
-    public PacoteTransporte(Destino destino, ArrayList<LocalDate> datasDisp, int duracao, int preco, String atividades,
-            String hotel, CategoriaViagem categoria) {
-        super(destino, datasDisp, duracao, preco, atividades, hotel, categoria);
+    public PacoteTransporte(Destino destino, LocalDate dataDisp, int duracao, int preco, ArrayList<turismo.models.Pacotes.Pacote.atrativos> atividades,
+            String hotel, CategoriaViagem categoria, int maxReservas, MetodoTransporte metodo, String origem) {
+        super(destino, dataDisp, duracao, preco, atividades, hotel, categoria, maxReservas);
+        this.metodo = metodo;
+        this.origem = origem;
     }
+    
     //Enum
-    private enum MetodoTransporte{
-        AVIAO, BARCO, ONIBUS 
+    public enum MetodoTransporte{
+        AVIAO, BARCO, ONIBUS
     }
     //Getters e Setters
     public String getOrigem() {
