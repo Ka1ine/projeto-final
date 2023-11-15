@@ -11,7 +11,7 @@ public class TurismoViewImpl implements TurismoView {
     }
 
     @Override
-    public void mostrarViagensDisponiveis(List<Pacote> viagens) {
+    public void mostrarViagensDisponiveis(List<? extends Pacote> viagens) {
         // Implementação da exibição de itens disponíveis
     }
 

@@ -5,25 +5,25 @@ import java.time.LocalDate;
 import turismo.models.Pessoas.Cliente;
 import turismo.models.Pessoas.Funcionario;
 
-public class Reserva<Reservavel> {
-    private Reservavel reserva;
+public class Reserva<T> {
+    private T reserva;
     private Cliente cliente;
     private LocalDate dataReserva;
     private Funcionario funcionario;
     
     //Construtor
-    public Reserva(Reservavel reserva, Cliente cliente, LocalDate dataReserva, Funcionario funcionario) {
+    public Reserva(T reserva, Cliente cliente, LocalDate dataReserva, Funcionario funcionario) {
         this.reserva = reserva;
         this.cliente = cliente;
         this.dataReserva = dataReserva;
         this.funcionario = funcionario;
     }
     //Getters e Setters
-    public Reservavel getReserva() {
+    public T getReserva() {
         return reserva;
     }
 
-    public void setReserva(Reservavel reserva) {
+    public void setReserva(T reserva) {
         this.reserva = reserva;
     }
 

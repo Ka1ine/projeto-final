@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.Scanner;
 import turismo.controllers.*;
 import turismo.models.*;
+import turismo.models.Pacotes.Pacote;
+import turismo.models.Pessoas.Cliente;
 import turismo.views.*;
 
 public class TurismoMain {
@@ -82,7 +84,7 @@ public class TurismoMain {
 
             switch (opcaoViagens) {
                 case 1:
-                    List<PacoteViagem> viagens = turismoController.consultarViagensDisponiveis();
+                    List<? extends Pacote> viagens = turismoController.consultarViagensDisponiveis();
                     turismoView.mostrarViagensDisponiveis(viagens);
                     break;
                 case 2:
