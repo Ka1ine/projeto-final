@@ -1,7 +1,7 @@
 package turismo.views;
 import java.util.List;
 import turismo.controllers.ClienteController;
-import turismo.models.Cliente;
+import turismo.models.Pessoas.Cliente;
 
 public class ClienteViewImpl implements ClienteView {
     private ClienteController clienteController;
