@@ -24,16 +24,16 @@ public class TurismoMain {
         Scanner scanner = new Scanner(System.in);
         
         while (true) {
-            System.out.println("---- Menu Turismo ----");
-            System.out.println();
-            System.out.println("1. Gerenciamento de Viagens");
-            System.out.println("2. Gerenciamento de Clientes");
-            System.out.println("3. Geração de Relatórios e Estatísticas");
-            System.out.println("4. Administração de Funcionários");
-            System.out.println("5. Sair");
-            System.out.println();
-            System.out.println();
-            System.out.print("Escolha uma opção: ");
+            System.out.println("╔═════════════════ Menu Turismo ════════════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Gerenciamento de Viagens                   ║");
+            System.out.println("║ 2. Gerenciamento de Clientes                  ║");
+            System.out.println("║ 3. Geração de Relatórios e Estatísticas       ║");
+            System.out.println("║ 4. Administração de Funcionários              ║");
+            System.out.println("║ 5. Sair                                       ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
 
             int opcao = scanner.nextInt();
             scanner.nextLine();
@@ -65,19 +65,19 @@ public class TurismoMain {
 
     private static void menuGerenciamentoViagens(Scanner scanner, TurismoView turismoView) {
         while (true) {
-            System.out.println("---- Menu Gerenciamento de Viagens ----");
-            System.out.println();
-            System.out.println("1. Listar Viagens Disponíveis");
-            System.out.println("2. Adicionar Viagem");
-            System.out.println("3. Editar Viagem");
-            System.out.println("4. Remover Viagem");
-            System.out.println("5. Empréstimo de Itens");
-            System.out.println("6. Renovação de Empréstimos");
-            System.out.println("7. Reservas de Viagens");
-            System.out.println("8. Voltar");
-            System.out.println();
-            System.out.println();
-            System.out.print("Escolha uma opção: ");
+            System.out.println("╔════════════════ Menu de Viagens ══════════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Listar Viagens Disponíveis                 ║");
+            System.out.println("║ 2. Adicionar Viagem                           ║");
+            System.out.println("║ 3. Editar Viagem                              ║");
+            System.out.println("║ 4. Remover Viagem                             ║");
+            System.out.println("║ 5. Empréstimo de Itens                        ║");
+            System.out.println("║ 6. Renovação de Empréstimos                   ║");
+            System.out.println("║ 7. Reservas de Viagens                        ║");
+            System.out.println("║ 8. Voltar                                     ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
 
             int opcaoViagens = scanner.nextInt();
             scanner.nextLine();
@@ -115,16 +115,16 @@ public class TurismoMain {
 
     private static void menuGerenciamentoClientes(Scanner scanner, ClienteView clienteView) {
         while (true) {
-            System.out.println("---- Menu Gerenciamento de Clientes ----");
-            System.out.println();
-            System.out.println("1. Listar Clientes");
-            System.out.println("2. Adicionar Clientes");
-            System.out.println("3. Editar Clientes");
-            System.out.println("4. Remover Clientes");
-            System.out.println("5. Voltar");
-            System.out.println();
-            System.out.println();
-            System.out.print("Escolha uma opção: ");
+            System.out.println("╔═══════════════ Menu de Clientes ══════════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Listar Clientes                            ║");
+            System.out.println("║ 2. Adicionar Clientes                         ║");
+            System.out.println("║ 3. Editar Clientes                            ║");
+            System.out.println("║ 4. Remover Clientes                           ║");
+            System.out.println("║ 5. Voltar                                     ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
 
             int opcaoClientes = scanner.nextInt();
             scanner.nextLine();
@@ -153,16 +153,16 @@ public class TurismoMain {
 
     private static void menuAdministracaoFuncionarios(Scanner scanner) {
         while (true) {
-            System.out.println("---- Menu Administração de Funcionários ----");
-            System.out.println();
-            System.out.println("1. Administradores");
-            System.out.println("2. Atendentes");
-            System.out.println("3. Gerentes");
-            System.out.println("4. Voltar");
-            System.out.println();
-            System.out.println();
-            System.out.print("Escolha uma opção: ");
-
+            System.out.println("╔════════════ Menu de Funcionários ═════════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Administradores                            ║");
+            System.out.println("║ 2. Atendentes                                 ║");
+            System.out.println("║ 3. Gerentes                                   ║");
+            System.out.println("║ 4. Voltar                                     ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+        
             int opcaoFuncionarios = scanner.nextInt();
             scanner.nextLine();
 
