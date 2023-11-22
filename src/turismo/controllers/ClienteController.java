@@ -1,7 +1,7 @@
 package turismo.controllers;
 import java.util.List;
-import turismo.models.Cliente;
-import turismo.views.ClienteView;
+
+import turismo.models.Pessoas.Cliente;
 
 public interface ClienteController {
     List<Cliente> listarClientes();

@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.Scanner;
 import turismo.controllers.*;
 import turismo.models.*;
+import turismo.models.Pacotes.Pacote;
+import turismo.models.Pessoas.Cliente;
 import turismo.views.*;
 
 public class TurismoMain {
@@ -22,16 +24,16 @@ public class TurismoMain {
         Scanner scanner = new Scanner(System.in);
         
         while (true) {
-            System.out.println("---- Menu Turismo ----");
-            System.out.println();
-            System.out.println("1. Viagens");
-            System.out.println("2. Gerenciamento de Clientes");
-            System.out.println("3. Geração de Relatórios e Estatísticas");
-            System.out.println("4. Administração de Funcionários");
-            System.out.println("5. Sair");
-            System.out.println();
-            System.out.println();
-            System.out.print("Escolha uma opção: ");
+            System.out.println("╔═════════════════ Menu Turismo ════════════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Gerenciamento de Viagens                   ║");
+            System.out.println("║ 2. Gerenciamento de Clientes                  ║");
+            System.out.println("║ 3. Geração de Relatórios e Estatísticas       ║");
+            System.out.println("║ 4. Administração de Funcionários              ║");
+            System.out.println("║ 5. Sair                                       ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
 
             int opcao = scanner.nextInt();
             scanner.nextLine();
@@ -193,16 +195,16 @@ public class TurismoMain {
 
     private static void menuGerenciamentoClientes(Scanner scanner, ClienteView clienteView) {
         while (true) {
-            System.out.println("---- Menu Gerenciamento de Clientes ----");
-            System.out.println();
-            System.out.println("1. Listar Clientes");
-            System.out.println("2. Adicionar Clientes");
-            System.out.println("3. Editar Clientes");
-            System.out.println("4. Remover Clientes");
-            System.out.println("5. Voltar");
-            System.out.println();
-            System.out.println();
-            System.out.print("Escolha uma opção: ");
+            System.out.println("╔═══════════════ Menu de Clientes ══════════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Listar Clientes                            ║");
+            System.out.println("║ 2. Adicionar Clientes                         ║");
+            System.out.println("║ 3. Editar Clientes                            ║");
+            System.out.println("║ 4. Remover Clientes                           ║");
+            System.out.println("║ 5. Voltar                                     ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
 
             int opcaoClientes = scanner.nextInt();
             scanner.nextLine();
@@ -231,16 +233,16 @@ public class TurismoMain {
 
     private static void menuAdministracaoFuncionarios(Scanner scanner) {
         while (true) {
-            System.out.println("---- Menu Administração de Funcionários ----");
-            System.out.println();
-            System.out.println("1. Administradores");
-            System.out.println("2. Atendentes");
-            System.out.println("3. Gerentes");
-            System.out.println("4. Voltar");
-            System.out.println();
-            System.out.println();
-            System.out.print("Escolha uma opção: ");
-
+            System.out.println("╔════════════ Menu de Funcionários ═════════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Administradores                            ║");
+            System.out.println("║ 2. Atendentes                                 ║");
+            System.out.println("║ 3. Gerentes                                   ║");
+            System.out.println("║ 4. Voltar                                     ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+        
             int opcaoFuncionarios = scanner.nextInt();
             scanner.nextLine();
 

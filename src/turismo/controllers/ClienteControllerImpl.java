@@ -1,7 +1,7 @@
 package turismo.controllers;
 import java.util.ArrayList;
 import java.util.List;
-import turismo.models.Cliente;
+import turismo.models.Pessoas.Cliente;
 
 public class ClienteControllerImpl implements ClienteController {
     private List<Cliente> clientes;
