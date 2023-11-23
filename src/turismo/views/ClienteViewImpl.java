@@ -12,7 +12,15 @@ public class ClienteViewImpl implements ClienteView {
 
     @Override
     public void mostrarListaClientes(List<Cliente> clientes) {
-        // Implementação da exibição da lista de membros
+        System.out.println("╔══════════════ Lista de Clientes ══════════════╗");
+        System.out.println("║                                               ║");
+        int cont = 1;
+        for (Cliente cliente : clientes) {
+            System.out.println("║ Cliente " + cont + ": "+ cliente.getNome());
+            cont++;
+        }
+        System.out.println("║                                               ║");
+        System.out.println("╚═══════════════════════════════════════════════╝");
     }
 
     @Override

@@ -1,4 +1,5 @@
 package main;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 import turismo.controllers.*;
@@ -138,15 +139,17 @@ public class TurismoMain {
                     adicionarCliente(scanner);
                     break;
                 case 3:
-                    editarCliente(scanner);
+                    editarCliente(scanner, clienteView);
                     break;
                 case 4:
-                    removerCliente(scanner);
+                    removerCliente(scanner, clienteView);
                     break;
                 case 5:
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                                               ║");
+                    System.out.println("║ Opção inválida. Por favor, escolha novamente. ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
@@ -214,7 +217,7 @@ public class TurismoMain {
         System.out.println("Operação de Reserva de Viagens");
     }
 
-    // Métodos para adicionar, editar e remover viagens e clientes
+    // Métodos para adicionar, editar e remover viagens
     private static void adicionarViagem(Scanner scanner) {
         System.out.println("Operação de Adição de Viagem");
     }
@@ -227,15 +230,133 @@ public class TurismoMain {
         System.out.println("Operação de Remoção de Viagem");
     }
 
+    // Métodos para adicionar, editar e remover clientes
     private static void adicionarCliente(Scanner scanner) {
-        System.out.println("Operação de Adição de Cliente");
+        
+        System.out.println("╔═══════════════ Adicionar Cliente ═════════════╗");
+    
+        System.out.print("║ Nome: ");
+        String nome = scanner.nextLine();
+    
+        System.out.print("║ Documento: ");
+        long documento = scanner.nextLong();
+    
+        System.out.print("║ ID: ");
+        long id = scanner.nextLong();
+        scanner.nextLine();
+    
+        System.out.print("║ Telefone: ");
+        long telefone = scanner.nextLong();
+    
+        System.out.print("║ E-mail: ");
+        String email = scanner.nextLine();
+        scanner.nextLine();
+    
+        System.out.print("║ Aniversário (AAAA-MM-DD): ");
+        LocalDate aniversario = LocalDate.parse(scanner.nextLine());
+    
+        Cliente novoCliente = new Cliente(nome, documento, id, telefone, email, aniversario);
+    
+        clienteController.adicionarCliente(novoCliente);
+
+        System.out.println("║                                               ║");
+        System.out.println("║         Cliente adicionado com sucesso!       ║");
+        System.out.println("╚═══════════════════════════════════════════════╝");
     }
 
-    private static void editarCliente(Scanner scanner) {
-        System.out.println("Operação de Edição de Cliente");
+    private static void editarCliente(Scanner scanner, ClienteView clienteView) {
+        System.out.println("╔════════════════ Editar Cliente ═══════════════╗");
+        System.out.println("║                                               ║");
+        System.out.print("║ Informe o ID do cliente: ");
+        long idClienteEditar = scanner.nextLong();
+
+        System.out.println("║                                               ║");
+
+        Cliente clienteParaEditar = clienteController.obterClientePorId(idClienteEditar);
+
+        if (clienteParaEditar != null) {
+            clienteView.mostrarDetalhesMembro(clienteParaEditar);
+            System.out.println("║ 1. Nome                                       ║");
+            System.out.println("║ 2. Documento                                  ║");
+            System.out.println("║ 3. Telefone                                   ║");
+            System.out.println("║ 4. E-mail                                     ║");
+            System.out.println("║ 5. Aniversário                                ║");
+            System.out.println("║                                               ║");
+            System.out.print("║ O que deseja editar: ");
+            
+            int opcaoEdicao = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.println("║                                               ║");
+            switch (opcaoEdicao) {
+                case 1:
+                    System.out.print("║ Novo Nome: ");
+                    clienteParaEditar.setNome(scanner.nextLine());
+                    break;
+                case 2:
+                    System.out.print("║ Novo Documento: ");
+                    clienteParaEditar.setDocumento(scanner.nextLong());
+                    break;
+                case 3:
+                    System.out.print("║ Novo Telefone: ");
+                    clienteParaEditar.setTelefone(scanner.nextLong());
+                    break;
+                case 4:
+                    System.out.print("║ Novo E-mail: ");
+                    clienteParaEditar.setEmail(scanner.nextLine());
+                    break;
+                case 5:
+                    System.out.print("║ Nova Data de Aniversário (AAAA-MM-DD): ");
+                    clienteParaEditar.setAniversario(LocalDate.parse(scanner.nextLine()));
+                    break;
+                default:
+                    System.out.println("║                                               ║");
+                    System.out.println("║               Opção inválida!                 ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
+                    return;
+            }
+                clienteController.atualizarCliente(clienteParaEditar);
+
+                System.out.println("║                                               ║");
+                System.out.println("║        Cliente editado com sucesso!           ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            } else {
+                
+                System.out.println("║                                               ║");
+                System.out.println("║           Cliente não encontrado.             ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            }
     }
 
-    private static void removerCliente(Scanner scanner) {
-        System.out.println("Operação de Remoção de Cliente");
+    private static void removerCliente(Scanner scanner, ClienteView clienteView) {
+        System.out.println("╔════════════════ Remover Cliente ══════════════╗");
+        System.out.println("║                                               ║");
+        System.out.print("║ Informe o ID do cliente: ");
+        long idClienteRemover = scanner.nextLong();
+        scanner.nextLine(); 
+        
+        Cliente clienteParaRemover = clienteController.obterClientePorId(idClienteRemover);
+        
+        if (clienteParaRemover != null) {
+            clienteView.mostrarDetalhesMembro(clienteParaRemover);
+            System.out.println("║                                               ║");
+            System.out.print("║ Tem certeza que deseja remover? (s/n):");
+            String confirmacao = scanner.nextLine().toLowerCase();
+        
+            if (confirmacao.equals("s")) {
+                clienteController.removerCliente(clienteParaRemover);
+                System.out.println("║                                               ║");
+                System.out.println("║         Cliente removido com sucesso!         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            } else {
+                System.out.println("║                                               ║");
+                System.out.println("║               Remoção cancelada.              ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            }
+        } else { 
+            System.out.println("║                                               ║");
+            System.out.println("║            Cliente não encontrado.            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+        }
     }
 }
