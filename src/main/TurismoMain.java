@@ -1,9 +1,18 @@
 package main;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Vector;
+
 import turismo.controllers.*;
 import turismo.models.*;
+import turismo.models.Pacotes.Destino;
 import turismo.models.Pacotes.Pacote;
+import turismo.models.Pacotes.Pacote.CategoriaViagem;
 import turismo.models.Pessoas.Cliente;
 import turismo.views.*;
 
@@ -22,7 +31,7 @@ public class TurismoMain {
         // RelatorioView relatorioView = new RelatorioViewImpl(relatorioController);
 
         Scanner scanner = new Scanner(System.in);
-        
+
         while (true) {
             System.out.println("---- Menu Turismo ----");
             System.out.println();
@@ -84,8 +93,7 @@ public class TurismoMain {
 
             switch (opcaoViagens) {
                 case 1:
-                    List<? extends Pacote> viagens = turismoController.consultarViagensDisponiveis();
-                    turismoView.mostrarViagensDisponiveis(viagens);
+                    menuGerenciamentoListagemPacotes(scanner, turismoView);
                     break;
                 case 2:
                     adicionarViagem(scanner);
@@ -111,6 +119,112 @@ public class TurismoMain {
                     System.out.println("Opção inválida. Por favor, escolha novamente.");
             }
         }
+    }
+
+    private static void menuGerenciamentoListagemPacotes(Scanner scanner, TurismoView turismoView) {
+        while (true) {
+            System.out.println("---- Menu Gerenciamento de Filtros ----");
+            System.out.println();
+            System.out.println("1. Listar Todos os Pacotes");
+            System.out.println("2. Filtrar Pacotes");
+            System.out.println("3. Voltar");
+            System.out.println();
+            System.out.println();
+            System.out.print("Escolha uma opção: ");
+
+            int opcaoFiltro = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcaoFiltro) {
+                case 1:
+                    List<? extends Pacote> viagens = turismoController.consultarViagensDisponiveis();
+                    turismoView.mostrarViagensDisponiveis(viagens);
+                    break;
+                case 2:
+                    menuGerenciamentoFiltros(scanner, turismoView);
+                    break;
+                case 3:
+                    return;
+                default:
+                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+            }
+        }
+    }
+
+    private static void menuGerenciamentoFiltros(Scanner scanner, TurismoView turismoView) {
+        List<? extends Pacote> viagens = turismoController.consultarViagensDisponiveis();
+
+        while (true) {
+            System.out.println("---- Menu Gerenciamento de Filtros ----");
+            System.out.println();
+            System.out.println("1. Adicionar Filtro de Destino");
+            System.out.println("2. Adicionar Filtro de Categoria");
+            System.out.println("3. Adicionar Filtro de Preço");
+            System.out.println("4. Listar Pacotes");
+            System.out.println("5. Voltar");
+            System.out.println();
+            System.out.println();
+            System.out.print("Escolha uma opção: ");
+
+            int opcaoFiltro = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcaoFiltro) {
+                case 1:
+                    HashSet<String> set = new HashSet<>();
+
+                    for (Pacote item : viagens) {
+                        set.add(item.getDestino().getNome());
+                    }
+
+                    int indexDestino = 1;
+                    for (String item : set) {
+                        System.out.printf("%d. %s\n", indexDestino, item);
+                        indexDestino += 1;
+                    }
+
+                    System.out.print("Selecione o destino: ");
+                    int valorDestino = menuValorFiltro(scanner);
+                    System.err.printf("%d", valorDestino);
+                    viagens.removeIf(p -> (p.getDestino().getNome() != set.toArray()[valorDestino - 1]));
+                    break;
+                case 2:
+                    List<Pacote.CategoriaViagem> values = Arrays.asList(Pacote.CategoriaViagem.values());
+                    
+                    int index = 1;
+                    for (Pacote.CategoriaViagem item : values) {
+                        System.out.printf("%d. %s\n", index, item.name());
+                        index += 1;
+                    }
+
+                    System.out.println();
+                    System.out.println();
+                    System.out.print("Selecione a categoria: ");
+                    int valorCategoria = menuValorFiltro(scanner);
+                    viagens.removeIf(p -> (p.getCategoria() != values.toArray()[valorCategoria - 1]));
+                    break;
+                case 3:
+                    System.out.print("Digite o preço máximo: ");
+                    int valorPreco = menuValorFiltro(scanner);
+                    viagens.removeIf(p -> (p.getPreco() > valorPreco));
+                    break;
+                case 4:
+                    System.out.println();
+                    System.out.println();
+                    turismoView.mostrarViagensDisponiveis(viagens);
+                    System.out.println();
+                    System.out.println();
+                    break;
+                default:
+                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+            }
+        }
+    }
+
+    private static int menuValorFiltro(Scanner scanner) {
+        int opcaoFiltro = scanner.nextInt();
+        scanner.nextLine();
+        return opcaoFiltro;
     }
 
     private static void menuGerenciamentoClientes(Scanner scanner, ClienteView clienteView) {
