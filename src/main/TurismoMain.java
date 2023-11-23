@@ -1,13 +1,11 @@
 package main;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.Vector;
 
 import turismo.controllers.*;
 import turismo.controllers.ClienteControllerImpl.ViagemCheiaException;
@@ -24,15 +22,18 @@ import turismo.views.*;
 public class TurismoMain {
     private static TurismoController turismoController;
     private static ClienteController clienteController;
+    private static FuncionarioController funcionarioController;
     // private static RelatorioController relatorioController;
 
     public static void main(String[] args) {
         turismoController = new TurismoControllerImpl();
         clienteController = new ClienteControllerImpl();
+        funcionarioController = new FuncionarioControllerImpl();
         // relatorioController = new RelatorioControllerImpl();
 
         TurismoView turismoView = new TurismoViewImpl(turismoController);
         ClienteView clienteView = new ClienteViewImpl(clienteController);
+        FuncionarioView funcionarioView = new FuncionarioViewImpl(funcionarioController);
         // RelatorioView relatorioView = new RelatorioViewImpl(relatorioController);
 
         Scanner scanner = new Scanner(System.in);
@@ -65,7 +66,7 @@ public class TurismoMain {
                     break;
                 case 4:
                     // Menu de Administração de Funcionários
-                    menuAdministracaoFuncionarios(scanner);
+                    menuAdministracaoFuncionarios(scanner, funcionarioView);
                     break;
                 case 5:
                     System.out.println("Saindo do menu. Até logo!");
@@ -361,52 +362,71 @@ public class TurismoMain {
         }
     }
 
-    private static void menuAdministracaoFuncionarios(Scanner scanner) {
+    private static void menuAdministracaoFuncionarios(Scanner scanner, FuncionarioView funcionarioView) {
+        int cont = 0;
+        int opcaoId = 0;
+        int opcaoSenha = 0;
+
         while (true) {
-            System.out.println("╔════════════ Menu de Funcionários ═════════════╗");
-            System.out.println("║                                               ║");
-            System.out.println("║ 1. Administradores                            ║");
-            System.out.println("║ 2. Atendentes                                 ║");
-            System.out.println("║ 3. Gerentes                                   ║");
-            System.out.println("║ 4. Voltar                                     ║");
-            System.out.println("║                                               ║");
-            System.out.println("║ Escolha uma opção:                            ║");
-            System.out.println("╚═══════════════════════════════════════════════╝");
-        
+
+            System.out.println("╔════════════════ Menu do Gerente ══════════════╗");
+            
+            if (cont == 0) {
+                System.out.print("║ Digite seu ID: ");  
+                opcaoId = scanner.nextInt();
+
+                System.out.print("║ Digite sua senha: ");
+                opcaoSenha = scanner.nextInt();
+            }
+
+            if (opcaoId == 1 && opcaoSenha == 123) {
+                cont++;
+                
+                if (cont == 10){
+                    cont = 0;
+                    System.out.println("║                                               ║");
+                    System.out.println("║        Seu tempo de acesso acabou.            ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
+                    return;
+                }
+
+                System.out.println("║                                               ║");
+                System.out.println("║ 1. Listar Funcionários                        ║");
+                System.out.println("║ 2. Adicionar Funcionário                      ║");
+                System.out.println("║ 3. Editar Funcionário                         ║");
+                System.out.println("║ 4. Remover Funcionário                        ║");
+                System.out.println("║                                               ║");
+                System.out.println("║ Escolha uma opção:                            ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            } else{
+                System.out.println("║                                               ║");
+                System.out.println("║                 Acesso negado.                ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                cont = 0;
+                return;
+            }
+            
             int opcaoFuncionarios = scanner.nextInt();
             scanner.nextLine();
 
             switch (opcaoFuncionarios) {
                 case 1:
-                    // Menu de Administração de Administradores
-                    menuAdministradores(scanner);
+                    List<Funcionario> funcionarios = funcionarioController.listarFuncionarios();
+                    funcionarioView.mostrarListaFuncionarios(funcionarios);
                     break;
                 case 2:
-                    // Menu de Administração de Atendentes
-                    menuAtendentes(scanner);
+                    adicionarFuncionario(scanner);
                     break;
                 case 3:
-                    // Menu de Administração de Gerentes
-                    menuGerentes(scanner);
+                    editarFuncionario(scanner, funcionarioView);
                     break;
                 case 4:
+                    removerFuncionario(scanner, funcionarioView);
                     return;
                 default:
                     System.out.println("Opção inválida. Por favor, escolha novamente.");
             }
         }
-    }
-
-    private static void menuAdministradores(Scanner scanner) {
-        // Lógica para administração de administradores
-    }
-
-    private static void menuAtendentes(Scanner scanner) {
-        // Lógica para administração de atendentes
-    }
-
-    private static void menuGerentes(Scanner scanner) {
-        // Lógica para administração de gerentes
     }
 
     // Métodos para realizar empréstimo, renovação e reserva
@@ -652,6 +672,136 @@ public class TurismoMain {
         } else { 
             System.out.println("║                                               ║");
             System.out.println("║            Cliente não encontrado.            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+        }
+    }
+
+    // Métodos para adicionar, editar e remover funcionarios
+    private static void adicionarFuncionario(Scanner scanner) {
+        
+        System.out.println("╔════════════ Adicionar Funcionario ═══════════╗");
+    
+        System.out.print("║ Nome: ");
+        String nome = scanner.nextLine();
+    
+        System.out.print("║ Documento: ");
+        long documento = scanner.nextLong();
+    
+        System.out.print("║ ID: ");
+        long id = scanner.nextLong();
+        scanner.nextLine();
+    
+        System.out.print("║ Telefone: ");
+        long telefone = scanner.nextLong();
+    
+        System.out.print("║ E-mail: ");
+        String email = scanner.nextLine();
+        scanner.nextLine();
+    
+        System.out.print("║ Aniversário (AAAA-MM-DD): ");
+        LocalDate aniversario = LocalDate.parse(scanner.nextLine());
+    
+        Funcionario novoFuncionario = new Funcionario(nome, documento, id, telefone, email, aniversario);
+    
+        funcionarioController.adicionarFuncionario(novoFuncionario);
+
+        System.out.println("║                                               ║");
+        System.out.println("║      Funcionário adicionado com sucesso!      ║");
+        System.out.println("╚═══════════════════════════════════════════════╝");
+    }
+
+    private static void editarFuncionario(Scanner scanner, FuncionarioView funcionarioView) {
+        System.out.println("╔═════════════ Editar Funcionario ══════════════╗");
+        System.out.println("║                                               ║");
+        System.out.print("║ Informe o ID do funcionário: ");
+        long idFuncionarioEditar = scanner.nextLong();
+
+        System.out.println("║                                               ║");
+
+        Funcionario funcionarioParaEditar = funcionarioController.obterFuncionarioPorId(idFuncionarioEditar);
+
+        if (funcionarioParaEditar != null) {
+            funcionarioView.mostrarDetalhesFuncionario(funcionarioParaEditar);
+            System.out.println("║ 1. Nome                                       ║");
+            System.out.println("║ 2. Documento                                  ║");
+            System.out.println("║ 3. Telefone                                   ║");
+            System.out.println("║ 4. E-mail                                     ║");
+            System.out.println("║ 5. Aniversário                                ║");
+            System.out.println("║                                               ║");
+            System.out.print("║ O que deseja editar: ");
+            
+            int opcaoEdicao = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.println("║                                               ║");
+            switch (opcaoEdicao) {
+                case 1:
+                    System.out.print("║ Novo Nome: ");
+                    funcionarioParaEditar.setNome(scanner.nextLine());
+                    break;
+                case 2:
+                    System.out.print("║ Novo Documento: ");
+                    funcionarioParaEditar.setDocumento(scanner.nextLong());
+                    break;
+                case 3:
+                    System.out.print("║ Novo Telefone: ");
+                    funcionarioParaEditar.setTelefone(scanner.nextLong());
+                    break;
+                case 4:
+                    System.out.print("║ Novo E-mail: ");
+                    funcionarioParaEditar.setEmail(scanner.nextLine());
+                    break;
+                case 5:
+                    System.out.print("║ Nova Data de Aniversário (AAAA-MM-DD): ");
+                    funcionarioParaEditar.setAniversario(LocalDate.parse(scanner.nextLine()));
+                    break;
+                default:
+                    System.out.println("║                                               ║");
+                    System.out.println("║               Opção inválida!                 ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
+                    return;
+            }
+                funcionarioController.atualizarFuncionario(funcionarioParaEditar);
+
+                System.out.println("║                                               ║");
+                System.out.println("║      Funcionario editado com sucesso!         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            } else {
+                
+                System.out.println("║                                               ║");
+                System.out.println("║         Funcionario não encontrado.           ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            }
+    }
+
+    private static void removerFuncionario(Scanner scanner, FuncionarioView funcionarioView) {
+        System.out.println("╔══════════════ Remover Funcionario ════════════╗");
+        System.out.println("║                                               ║");
+        System.out.print("║ Informe o ID do funcionario: ");
+        long idFuncionarioRemover = scanner.nextLong();
+        scanner.nextLine(); 
+        
+        Funcionario funcionarioParaRemover = funcionarioController.obterFuncionarioPorId(idFuncionarioRemover);
+        
+        if (funcionarioParaRemover != null) {
+            funcionarioView.mostrarDetalhesFuncionario(funcionarioParaRemover);
+            System.out.println("║                                               ║");
+            System.out.print("║ Tem certeza que deseja remover? (s/n):");
+            String confirmacao = scanner.nextLine().toLowerCase();
+        
+            if (confirmacao.equals("s")) {
+                funcionarioController.removerFuncionario(funcionarioParaRemover);
+                System.out.println("║                                               ║");
+                System.out.println("║         Funcionario removido com sucesso!         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            } else {
+                System.out.println("║                                               ║");
+                System.out.println("║               Remoção cancelada.              ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            }
+        } else { 
+            System.out.println("║                                               ║");
+            System.out.println("║          Funcionario não encontrado.          ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
         }
     }

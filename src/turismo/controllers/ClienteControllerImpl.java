@@ -29,7 +29,6 @@ public class ClienteControllerImpl implements ClienteController {
         return null;
     }
 
-
     public void reservar(Cliente cliente, Reservavel pacote, Funcionario funcionario,long id) throws ViagemCheiaException{
         try {
             if (pacote.getReservas().size() >= pacote.getMaxReservas()){
