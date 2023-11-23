@@ -26,7 +26,7 @@ public class TurismoMain {
         while (true) {
             System.out.println("╔═════════════════ Menu Turismo ════════════════╗");
             System.out.println("║                                               ║");
-            System.out.println("║ 1. Gerenciamento de Viagens                   ║");
+            System.out.println("║ 1. Gerenciamento de Pacotes                   ║");
             System.out.println("║ 2. Gerenciamento de Clientes                  ║");
             System.out.println("║ 3. Geração de Relatórios e Estatísticas       ║");
             System.out.println("║ 4. Administração de Funcionários              ║");
@@ -65,11 +65,11 @@ public class TurismoMain {
 
     private static void menuViagens(Scanner scanner, TurismoView turismoView) {
         while (true) {
-            System.out.println("╔════════════════════ Viagem ═══════════════════╗");
+            System.out.println("╔═══════════════════ Pacotes ═══════════════════╗");
             System.out.println("║                                               ║");
-            System.out.println("║ 1. Viagens disponíveis                        ║");
+            System.out.println("║ 1. Pacotes disponíveis                        ║");
             System.out.println("║ 2. Reservas                                   ║");
-            System.out.println("║ 3. Gerenciamento de Viagens                   ║");
+            System.out.println("║ 3. Gerenciamento de Pacotes                   ║");
             System.out.println("║ 4. Voltar                                     ║");
             System.out.println("║                                               ║");
             System.out.println("║ Escolha uma opção:                            ║");
@@ -86,7 +86,7 @@ public class TurismoMain {
                     reservas(scanner);
                     break;
                 case 3:
-                    gerenciamentoViagens(scanner);
+                    gerenciamentoPacotes(scanner);
                     break;
                 case 4:
                     return;
@@ -160,13 +160,13 @@ public class TurismoMain {
         }
     }    
 
-    private static void gerenciamentoViagens(Scanner scanner) {
+    private static void gerenciamentoPacotes(Scanner scanner) {
         while (true) {
-            System.out.println("╔════════════════════ Viagem ═══════════════════╗");
+            System.out.println("╔════════════════════ Pacotes ══════════════════╗");
             System.out.println("║                                               ║");
-            System.out.println("║ 1. Adicionar viagem                           ║");
-            System.out.println("║ 2. Editar viagem                              ║");
-            System.out.println("║ 3. Remover viagem                             ║");
+            System.out.println("║ 1. Adicionar Pacote                           ║");
+            System.out.println("║ 2. Editar Pacote                              ║");
+            System.out.println("║ 3. Remover Pacote                             ║");
             System.out.println("║ 4. Voltar                                     ║");
             System.out.println("║                                               ║");
             System.out.println("║ Escolha uma opção:                            ║");

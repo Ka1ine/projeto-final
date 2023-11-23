@@ -17,10 +17,11 @@ public class Pacote implements Reservavel{
     private CategoriaViagem categoria;
     private ArrayList<Reserva<Reservavel>> reservas;
     private int maxReservas;
+    private int codigo;
     
     //Construtor
     public Pacote(Destino destino, LocalDate dataDisp, int duracao, int preco, ArrayList<atrativos> atrativos,
-    String hotel, CategoriaViagem categoria, int maxReservas) {
+    String hotel, CategoriaViagem categoria, int maxReservas, int codigo) {
         this.destino = destino;
         this.dataDisp = dataDisp;
         this.duracao = duracao;
@@ -29,6 +30,7 @@ public class Pacote implements Reservavel{
         this.hotel = hotel;
         this.categoria = categoria;
         this.maxReservas = maxReservas;
+        this.codigo = codigo;
         this.reservas = new ArrayList<>();
     }
     //Getters e Setters    
@@ -99,6 +101,14 @@ public class Pacote implements Reservavel{
     public void setMaxReservas(int maxReservas) {
         this.maxReservas = maxReservas;
     }    
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
     
     //enum
     public enum CategoriaViagem{

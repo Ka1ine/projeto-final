@@ -7,7 +7,7 @@ public class Destino {
     private CategoriaDestino categoria;
     private String atracoes;
 
-    private enum CategoriaDestino{
+    public enum CategoriaDestino{
         PRAIA, MONTANHA, CAMPO, CIDADE
     }
     
