@@ -27,6 +27,7 @@ public class ClienteControllerImpl implements ClienteController {
         return null;
     }
 
+
     public void reservar(Cliente cliente, Reservavel pacote, Funcionario funcionario) throws ViagemCheiaException{
         try {
             if (pacote.getReservas().size() >= pacote.getMaxReservas()){
@@ -45,4 +46,34 @@ public class ClienteControllerImpl implements ClienteController {
             super(mensagem);
         }
     }
+
+    @Override
+    public void adicionarCliente(Cliente cliente) {
+        clientes.add(cliente);
+    }
+
+    @Override
+    public Cliente obterClientePorId(long id) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getId() == id) {
+                return cliente;
+            }
+        }
+        return null; 
+    }
+
+    @Override
+    public void atualizarCliente(Cliente cliente) {
+        int index = clientes.indexOf(cliente);
+        if (index != -1) {
+            clientes.set(index, cliente);
+        }
+        
+    }
+
+    @Override
+    public void removerCliente(Cliente cliente) {
+        clientes.remove(cliente);  
+    }
+   
 }

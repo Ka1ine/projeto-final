@@ -18,7 +18,7 @@ public class Cliente extends Usuario {
         this.reservas = reservas;
     }
 
-    public Cliente(String nome, int documento, int id, int telefone, String email, LocalDate aniversario) {
+    public Cliente(String nome, long documento, long id, long telefone, String email, LocalDate aniversario) {
         super(nome, documento, id, telefone, email, aniversario);
         this.reservas = new ArrayList<>();
     }
