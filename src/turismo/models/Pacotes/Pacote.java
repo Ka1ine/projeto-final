@@ -111,7 +111,7 @@ public class Pacote implements Reservavel{
     }
     
     //enum
-    public enum CategoriaViagem{
+    public static enum CategoriaViagem{
         AVENTURA, CULTURA, RELAXAMENTO, ROMANTICO, ECOTURISMO, RELIGIOSO
     }
 

@@ -7,14 +7,14 @@ import java.time.*;
 public class Usuario{
     //Atributos
     private String nome;
-    private int documento;
-    private int id;
-    private int telefone;
+    private long documento;
+    private long id;
+    private long telefone;
     private String email;
     private LocalDate aniversario;
 
     //Construtor
-    public Usuario(String nome, int documento, int id, int telefone, String email, LocalDate aniversario) {
+    public Usuario(String nome, long documento, long id, long telefone, String email, LocalDate aniversario) {
         this.nome = nome;
         this.documento = documento;
         this.id = id;
@@ -22,7 +22,7 @@ public class Usuario{
         this.email = email;
         this.aniversario = aniversario;
     }
-//Getters e setters
+    //Getters e setters
     public LocalDate getAniversario() {
         return aniversario;
     }
@@ -39,27 +39,27 @@ public class Usuario{
         this.email = email;
     }
 
-    public int getTelefone() {
+    public long getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(long telefone) {
         this.telefone = telefone;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getDocumento() {
+    public long getDocumento() {
         return documento;
     }
 
-    public void setDocumento(int documento) {
+    public void setDocumento(long documento) {
         this.documento = documento;
     }
 
