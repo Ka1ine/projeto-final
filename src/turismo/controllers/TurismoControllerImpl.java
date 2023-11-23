@@ -34,7 +34,7 @@ public class TurismoControllerImpl implements TurismoController {
     }
 
     @Override
-    public void addPacote(Pacote p, Scanner scanner){
+    public void addPacote(Scanner scanner){
         System.out.println("Informe o nome do destino:");
         String nomeDestino = scanner.nextLine();
 
@@ -186,7 +186,11 @@ public class TurismoControllerImpl implements TurismoController {
     }
     
     @Override
-    public void removerPacote(int codigo){
+    public void removerPacote(Scanner scanner){
+        System.out.println("Informe o código do pacote a ser removido:");
+        int codigo = scanner.nextInt();
+        scanner.nextLine();
+
         for(Pacote p : pacotes){
             if(p.getCodigo() == codigo){
                 pacotes.remove(p);
@@ -198,7 +202,10 @@ public class TurismoControllerImpl implements TurismoController {
     }
     
     @Override
-    public void editarPacote(int codigo, Scanner scanner){
+    public void editarPacote(Scanner scanner){
+        System.out.println("Informe o código do pacote a ser editado:");
+        int codigo = scanner.nextInt();
+        scanner.nextLine();
         Pacote pa = null;
 
         for(Pacote p : pacotes){
