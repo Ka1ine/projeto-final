@@ -187,13 +187,13 @@ public class TurismoMain {
 
             switch (opcaoViagens) {
                 case 1:
-                    // Adicionar viagem
+                    turismoController.addPacote(scanner);
                     break;
                 case 2:
-                    // Editar viagem
+                    turismoController.editarPacote(scanner);
                     break;
                 case 3:
-                    // Remover viagem
+                    turismoController.removerPacote(scanner);
                     break;
                 case 4:
                     return;
@@ -297,6 +297,8 @@ public class TurismoMain {
                     System.out.println();
                     System.out.println();
                     break;
+                case 5:
+                    return;
                 default:
                     System.out.println("Opção inválida. Por favor, escolha novamente.");
             }
