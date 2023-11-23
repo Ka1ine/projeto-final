@@ -10,7 +10,6 @@ import turismo.models.Pessoas.Funcionario;
 
 public class ClienteControllerImpl implements ClienteController {
     private List<Cliente> clientes;
-    private LocalDate date;
 
     public ClienteControllerImpl() {
         clientes = new ArrayList<>();
@@ -26,7 +25,6 @@ public class ClienteControllerImpl implements ClienteController {
         // Lógica de busca
         return null;
     }
-
 
     public void reservar(Cliente cliente, Reservavel pacote, Funcionario funcionario) throws ViagemCheiaException{
         try {

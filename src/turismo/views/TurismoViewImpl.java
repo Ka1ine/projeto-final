@@ -12,6 +12,11 @@ public class TurismoViewImpl implements TurismoView {
 
     @Override
     public void mostrarViagensDisponiveis(List<? extends Pacote> viagens) {
+        int index = 1;
+        for (Pacote pacote : viagens) {
+            System.out.printf("%d. %s - R$%d,00 - %s\n", index, pacote.getDestino().getNome(), pacote.getPreco(), pacote.getCategoria().name());
+            index += 1;
+        }
         // Implementação da exibição de itens disponíveis
     }
 

@@ -1,33 +1,42 @@
 package main;
+
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashSet;
+
 import java.util.List;
 import java.util.Scanner;
+
 import turismo.controllers.*;
-import turismo.models.*;
 import turismo.models.Pacotes.Pacote;
 import turismo.models.Pessoas.Cliente;
+import turismo.models.Pessoas.Funcionario;
+import turismo.models.Pessoas.Gerente;
 import turismo.views.*;
 
 public class TurismoMain {
     private static TurismoController turismoController;
     private static ClienteController clienteController;
+    private static FuncionarioController funcionarioController;
     // private static RelatorioController relatorioController;
 
     public static void main(String[] args) {
         turismoController = new TurismoControllerImpl();
         clienteController = new ClienteControllerImpl();
+        funcionarioController = new FuncionarioControllerImpl();
         // relatorioController = new RelatorioControllerImpl();
 
         TurismoView turismoView = new TurismoViewImpl(turismoController);
         ClienteView clienteView = new ClienteViewImpl(clienteController);
+        FuncionarioView funcionarioView = new FuncionarioViewImpl(funcionarioController);
         // RelatorioView relatorioView = new RelatorioViewImpl(relatorioController);
 
         Scanner scanner = new Scanner(System.in);
-        
+
         while (true) {
             System.out.println("╔═════════════════ Menu Turismo ════════════════╗");
             System.out.println("║                                               ║");
-            System.out.println("║ 1. Gerenciamento de Viagens                   ║");
+            System.out.println("║ 1. Gerenciamento de Pacotes                   ║");
             System.out.println("║ 2. Gerenciamento de Clientes                  ║");
             System.out.println("║ 3. Geração de Relatórios e Estatísticas       ║");
             System.out.println("║ 4. Administração de Funcionários              ║");
@@ -41,7 +50,7 @@ public class TurismoMain {
 
             switch (opcao) {
                 case 1:
-                    menuGerenciamentoViagens(scanner, turismoView);
+                    menuViagens(scanner, turismoView);
                     break;
                 case 2:
                     menuGerenciamentoClientes(scanner, clienteView);
@@ -52,7 +61,7 @@ public class TurismoMain {
                     break;
                 case 4:
                     // Menu de Administração de Funcionários
-                    menuAdministracaoFuncionarios(scanner);
+                    menuAdministracaoFuncionarios(scanner, funcionarioView);
                     break;
                 case 5:
                     System.out.println("Saindo do menu. Até logo!");
@@ -64,18 +73,14 @@ public class TurismoMain {
         }
     }
 
-    private static void menuGerenciamentoViagens(Scanner scanner, TurismoView turismoView) {
+    private static void menuViagens(Scanner scanner, TurismoView turismoView) {
         while (true) {
-            System.out.println("╔════════════════ Menu de Viagens ══════════════╗");
+            System.out.println("╔═══════════════════ Pacotes ═══════════════════╗");
             System.out.println("║                                               ║");
-            System.out.println("║ 1. Listar Viagens Disponíveis                 ║");
-            System.out.println("║ 2. Adicionar Viagem                           ║");
-            System.out.println("║ 3. Editar Viagem                              ║");
-            System.out.println("║ 4. Remover Viagem                             ║");
-            System.out.println("║ 5. Empréstimo de Itens                        ║");
-            System.out.println("║ 6. Renovação de Empréstimos                   ║");
-            System.out.println("║ 7. Reservas de Viagens                        ║");
-            System.out.println("║ 8. Voltar                                     ║");
+            System.out.println("║ 1. Pacotes disponíveis                        ║");
+            System.out.println("║ 2. Reservas                                   ║");
+            System.out.println("║ 3. Gerenciamento de Pacotes                   ║");
+            System.out.println("║ 4. Voltar                                     ║");
             System.out.println("║                                               ║");
             System.out.println("║ Escolha uma opção:                            ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
@@ -85,33 +90,225 @@ public class TurismoMain {
 
             switch (opcaoViagens) {
                 case 1:
-                    List<? extends Pacote> viagens = turismoController.consultarViagensDisponiveis();
-                    turismoView.mostrarViagensDisponiveis(viagens);
+                    menuGerenciamentoListagemPacotes(scanner, turismoView);
                     break;
                 case 2:
-                    adicionarViagem(scanner);
+                    reservas(scanner);
                     break;
                 case 3:
-                    editarViagem(scanner);
+                    gerenciamentoPacotes(scanner);
                     break;
                 case 4:
-                    removerViagem(scanner);
-                    break;
-                case 5:
-                    realizarEmprestimo(scanner);
-                    break;
-                case 6:
-                    realizarRenovacao(scanner);
-                    break;
-                case 7:
-                    fazerReserva(scanner);
-                    break;
-                case 8:
                     return;
                 default:
                     System.out.println("Opção inválida. Por favor, escolha novamente.");
             }
         }
+    }
+
+    private static void pacotesDisponiveis(Scanner scanner, TurismoView turismoView) {
+        // List<Pacote> viagens = turismoController.consultarViagensDisponiveis();
+        // turismoView.mostrarViagensDisponiveis(viagens);
+        while (true) {
+            System.out.println("╔═══════════════════ Detalhes ══════════════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Detalhar pacote                            ║");
+            System.out.println("║ 2. Voltar                                     ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+
+            int opcaoViagens = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcaoViagens) {
+                case 1:
+                    // detalhar();
+                    break;
+                case 2:
+                    return;
+                default:
+                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+            }
+        }
+    }
+
+    private static void reservas(Scanner scanner) {
+        while (true) {
+            System.out.println("╔═══════════════════ Reservas ══════════════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Acessar reserva                            ║");
+            System.out.println("║ 2. Nova reserva                               ║");
+            System.out.println("║ 3. Editar reserva                             ║");
+            System.out.println("║ 4. Remover reserva                            ║");
+            System.out.println("║ 5. Voltar                                     ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+
+            int opcaoViagens = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcaoViagens) {
+                case 1:
+                    //acessar reserva
+                    break;
+                case 2:
+                    //criar reserva
+                    break;
+                case 3:
+                    // editar reserva
+                    break;
+                case 4:
+                    // remover reserva
+                    break;
+                case 5:
+                    return;
+                default:
+                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+            }
+        }
+    }    
+
+    private static void gerenciamentoPacotes(Scanner scanner) {
+        while (true) {
+            System.out.println("╔════════════════════ Pacotes ══════════════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Adicionar Pacote                           ║");
+            System.out.println("║ 2. Editar Pacote                              ║");
+            System.out.println("║ 3. Remover Pacote                             ║");
+            System.out.println("║ 4. Voltar                                     ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+
+            int opcaoViagens = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcaoViagens) {
+                case 1:
+                    turismoController.addPacote(scanner);
+                    break;
+                case 2:
+                    turismoController.editarPacote(scanner);
+                    break;
+                case 3:
+                    turismoController.removerPacote(scanner);
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+            }
+        }
+    }
+
+    private static void menuGerenciamentoListagemPacotes(Scanner scanner, TurismoView turismoView) {
+        while (true) {
+            System.out.println("---- Menu Gerenciamento de Filtros ----");
+            System.out.println();
+            System.out.println("1. Listar Todos os Pacotes");
+            System.out.println("2. Filtrar Pacotes");
+            System.out.println("3. Voltar");
+            System.out.println();
+            System.out.println();
+            System.out.print("Escolha uma opção: ");
+
+            int opcaoFiltro = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcaoFiltro) {
+                case 1:
+                    List<? extends Pacote> viagens = turismoController.consultarViagensDisponiveis();
+                    turismoView.mostrarViagensDisponiveis(viagens);
+                    break;
+                case 2:
+                    menuGerenciamentoFiltros(scanner, turismoView);
+                    break;
+                case 3:
+                    return;
+                default:
+                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+            }
+        }
+    }
+
+    private static void menuGerenciamentoFiltros(Scanner scanner, TurismoView turismoView) {
+        List<? extends Pacote> viagens = turismoController.consultarViagensDisponiveis();
+
+        while (true) {
+            System.out.println("---- Menu Gerenciamento de Filtros ----");
+            System.out.println();
+            System.out.println("1. Adicionar Filtro de Destino");
+            System.out.println("2. Adicionar Filtro de Categoria");
+            System.out.println("3. Adicionar Filtro de Preço");
+            System.out.println("4. Listar Pacotes");
+            System.out.println("5. Voltar");
+            System.out.println();
+            System.out.println();
+            System.out.print("Escolha uma opção: ");
+
+            int opcaoFiltro = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcaoFiltro) {
+                case 1:
+                    HashSet<String> set = new HashSet<>();
+
+                    for (Pacote item : viagens) {
+                        set.add(item.getDestino().getNome());
+                    }
+
+                    int indexDestino = 1;
+                    for (String item : set) {
+                        System.out.printf("%d. %s\n", indexDestino, item);
+                        indexDestino += 1;
+                    }
+
+                    System.out.print("Selecione o destino: ");
+                    int valorDestino = menuValorFiltro(scanner);
+                    System.err.printf("%d", valorDestino);
+                    viagens.removeIf(p -> (p.getDestino().getNome() != set.toArray()[valorDestino - 1]));
+                    break;
+                case 2:
+                    List<Pacote.CategoriaViagem> values = Arrays.asList(Pacote.CategoriaViagem.values());
+                    
+                    int index = 1;
+                    for (Pacote.CategoriaViagem item : values) {
+                        System.out.printf("%d. %s\n", index, item.name());
+                        index += 1;
+                    }
+
+                    System.out.println();
+                    System.out.println();
+                    System.out.print("Selecione a categoria: ");
+                    int valorCategoria = menuValorFiltro(scanner);
+                    viagens.removeIf(p -> (p.getCategoria() != values.toArray()[valorCategoria - 1]));
+                    break;
+                case 3:
+                    System.out.print("Digite o preço máximo: ");
+                    int valorPreco = menuValorFiltro(scanner);
+                    viagens.removeIf(p -> (p.getPreco() > valorPreco));
+                    break;
+                case 4:
+                    System.out.println();
+                    System.out.println();
+                    turismoView.mostrarViagensDisponiveis(viagens);
+                    System.out.println();
+                    System.out.println();
+                    break;
+                case 5:
+                    return;
+                default:
+                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+            }
+        }
+    }
+
+    private static int menuValorFiltro(Scanner scanner) {
+        int opcaoFiltro = scanner.nextInt();
+        scanner.nextLine();
+        return opcaoFiltro;
     }
 
     private static void menuGerenciamentoClientes(Scanner scanner, ClienteView clienteView) {
@@ -154,52 +351,71 @@ public class TurismoMain {
         }
     }
 
-    private static void menuAdministracaoFuncionarios(Scanner scanner) {
+    private static void menuAdministracaoFuncionarios(Scanner scanner, FuncionarioView funcionarioView) {
+        int cont = 0;
+        int opcaoId = 0;
+        int opcaoSenha = 0;
+
         while (true) {
-            System.out.println("╔════════════ Menu de Funcionários ═════════════╗");
-            System.out.println("║                                               ║");
-            System.out.println("║ 1. Administradores                            ║");
-            System.out.println("║ 2. Atendentes                                 ║");
-            System.out.println("║ 3. Gerentes                                   ║");
-            System.out.println("║ 4. Voltar                                     ║");
-            System.out.println("║                                               ║");
-            System.out.println("║ Escolha uma opção:                            ║");
-            System.out.println("╚═══════════════════════════════════════════════╝");
-        
+
+            System.out.println("╔════════════════ Menu do Gerente ══════════════╗");
+            
+            if (cont == 0) {
+                System.out.print("║ Digite seu ID: ");  
+                opcaoId = scanner.nextInt();
+
+                System.out.print("║ Digite sua senha: ");
+                opcaoSenha = scanner.nextInt();
+            }
+
+            if (opcaoId == 1 && opcaoSenha == 123) {
+                cont++;
+                
+                if (cont == 10){
+                    cont = 0;
+                    System.out.println("║                                               ║");
+                    System.out.println("║        Seu tempo de acesso acabou.            ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
+                    return;
+                }
+
+                System.out.println("║                                               ║");
+                System.out.println("║ 1. Listar Funcionários                        ║");
+                System.out.println("║ 2. Adicionar Funcionário                      ║");
+                System.out.println("║ 3. Editar Funcionário                         ║");
+                System.out.println("║ 4. Remover Funcionário                        ║");
+                System.out.println("║                                               ║");
+                System.out.println("║ Escolha uma opção:                            ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            } else{
+                System.out.println("║                                               ║");
+                System.out.println("║                 Acesso negado.                ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                cont = 0;
+                return;
+            }
+            
             int opcaoFuncionarios = scanner.nextInt();
             scanner.nextLine();
 
             switch (opcaoFuncionarios) {
                 case 1:
-                    // Menu de Administração de Administradores
-                    menuAdministradores(scanner);
+                    List<Funcionario> funcionarios = funcionarioController.listarFuncionarios();
+                    funcionarioView.mostrarListaFuncionarios(funcionarios);
                     break;
                 case 2:
-                    // Menu de Administração de Atendentes
-                    menuAtendentes(scanner);
+                    adicionarFuncionario(scanner);
                     break;
                 case 3:
-                    // Menu de Administração de Gerentes
-                    menuGerentes(scanner);
+                    editarFuncionario(scanner, funcionarioView);
                     break;
                 case 4:
+                    removerFuncionario(scanner, funcionarioView);
                     return;
                 default:
                     System.out.println("Opção inválida. Por favor, escolha novamente.");
             }
         }
-    }
-
-    private static void menuAdministradores(Scanner scanner) {
-        // Lógica para administração de administradores
-    }
-
-    private static void menuAtendentes(Scanner scanner) {
-        // Lógica para administração de atendentes
-    }
-
-    private static void menuGerentes(Scanner scanner) {
-        // Lógica para administração de gerentes
     }
 
     // Métodos para realizar empréstimo, renovação e reserva
@@ -232,33 +448,76 @@ public class TurismoMain {
 
     // Métodos para adicionar, editar e remover clientes
     private static void adicionarCliente(Scanner scanner) {
-        
         System.out.println("╔═══════════════ Adicionar Cliente ═════════════╗");
-    
+
         System.out.print("║ Nome: ");
         String nome = scanner.nextLine();
-    
-        System.out.print("║ Documento: ");
-        long documento = scanner.nextLong();
-    
-        System.out.print("║ ID: ");
-        long id = scanner.nextLong();
-        scanner.nextLine();
-    
-        System.out.print("║ Telefone: ");
-        long telefone = scanner.nextLong();
-    
-        System.out.print("║ E-mail: ");
-        String email = scanner.nextLine();
-        scanner.nextLine();
-    
-        System.out.print("║ Aniversário (AAAA-MM-DD): ");
-        LocalDate aniversario = LocalDate.parse(scanner.nextLine());
-    
-        Cliente novoCliente = new Cliente(nome, documento, id, telefone, email, aniversario);
-    
-        clienteController.adicionarCliente(novoCliente);
 
+        long documento = 0;
+        boolean documentoValido = false;
+        while (!documentoValido) {
+            try {
+                System.out.print("║ Documento: ");
+                documento = scanner.nextLong(); 
+                documentoValido = true;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("║ Documento inválido. Digite apenas números.");
+                scanner.next(); // Limpa o buffer
+            }
+        }
+
+        long id = 0;
+        boolean idValido = false;
+        while (!idValido) {
+            try {
+                System.out.print("║ ID: ");
+                id = scanner.nextLong();
+                idValido = true;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("║ ID inválido. Digite apenas números.");
+                scanner.next(); // Limpa o buffer
+            }
+        }
+        scanner.nextLine(); // Limpa o buffer
+
+        long telefone = 0;
+        boolean telefoneValido = false;
+        while (!telefoneValido) {
+            try {
+                System.out.print("║ Telefone: ");
+                telefone = scanner.nextLong();
+                telefoneValido = true;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("║ Telefone inválido. Digite apenas números.");
+                scanner.next(); // Limpa o buffer
+            }
+        }
+
+        String email = "";
+        boolean emailValido = false;
+        while (!emailValido) {
+            System.out.print("║ E-mail: ");
+            email = scanner.nextLine();
+            if (email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+                emailValido = true;
+            } else {
+                System.out.println("║ E-mail inválido. ");
+            }
+        }
+
+        LocalDate aniversario = null;
+        boolean dataValida = false;
+        while (!dataValida) {
+            try {
+                System.out.print("║ Aniversário (AAAA-MM-DD): ");
+                aniversario = LocalDate.parse(scanner.nextLine());
+                dataValida = true;
+            } catch (java.time.format.DateTimeParseException e) {
+                System.out.println("║ Data de aniversário inválida.");
+            }
+        }
+
+   
         System.out.println("║                                               ║");
         System.out.println("║         Cliente adicionado com sucesso!       ║");
         System.out.println("╚═══════════════════════════════════════════════╝");
@@ -359,4 +618,135 @@ public class TurismoMain {
             System.out.println("╚═══════════════════════════════════════════════╝");
         }
     }
+
+    // Métodos para adicionar, editar e remover funcionarios
+    private static void adicionarFuncionario(Scanner scanner) {
+        
+        System.out.println("╔════════════ Adicionar Funcionario ═══════════╗");
+    
+        System.out.print("║ Nome: ");
+        String nome = scanner.nextLine();
+    
+        System.out.print("║ Documento: ");
+        long documento = scanner.nextLong();
+    
+        System.out.print("║ ID: ");
+        long id = scanner.nextLong();
+        scanner.nextLine();
+    
+        System.out.print("║ Telefone: ");
+        long telefone = scanner.nextLong();
+    
+        System.out.print("║ E-mail: ");
+        String email = scanner.nextLine();
+        scanner.nextLine();
+    
+        System.out.print("║ Aniversário (AAAA-MM-DD): ");
+        LocalDate aniversario = LocalDate.parse(scanner.nextLine());
+    
+        Funcionario novoFuncionario = new Funcionario(nome, documento, id, telefone, email, aniversario);
+    
+        funcionarioController.adicionarFuncionario(novoFuncionario);
+
+        System.out.println("║                                               ║");
+        System.out.println("║      Funcionário adicionado com sucesso!      ║");
+        System.out.println("╚═══════════════════════════════════════════════╝");
+    }
+
+    private static void editarFuncionario(Scanner scanner, FuncionarioView funcionarioView) {
+        System.out.println("╔═════════════ Editar Funcionario ══════════════╗");
+        System.out.println("║                                               ║");
+        System.out.print("║ Informe o ID do funcionário: ");
+        long idFuncionarioEditar = scanner.nextLong();
+
+        System.out.println("║                                               ║");
+
+        Funcionario funcionarioParaEditar = funcionarioController.obterFuncionarioPorId(idFuncionarioEditar);
+
+        if (funcionarioParaEditar != null) {
+            funcionarioView.mostrarDetalhesFuncionario(funcionarioParaEditar);
+            System.out.println("║ 1. Nome                                       ║");
+            System.out.println("║ 2. Documento                                  ║");
+            System.out.println("║ 3. Telefone                                   ║");
+            System.out.println("║ 4. E-mail                                     ║");
+            System.out.println("║ 5. Aniversário                                ║");
+            System.out.println("║                                               ║");
+            System.out.print("║ O que deseja editar: ");
+            
+            int opcaoEdicao = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.println("║                                               ║");
+            switch (opcaoEdicao) {
+                case 1:
+                    System.out.print("║ Novo Nome: ");
+                    funcionarioParaEditar.setNome(scanner.nextLine());
+                    break;
+                case 2:
+                    System.out.print("║ Novo Documento: ");
+                    funcionarioParaEditar.setDocumento(scanner.nextLong());
+                    break;
+                case 3:
+                    System.out.print("║ Novo Telefone: ");
+                    funcionarioParaEditar.setTelefone(scanner.nextLong());
+                    break;
+                case 4:
+                    System.out.print("║ Novo E-mail: ");
+                    funcionarioParaEditar.setEmail(scanner.nextLine());
+                    break;
+                case 5:
+                    System.out.print("║ Nova Data de Aniversário (AAAA-MM-DD): ");
+                    funcionarioParaEditar.setAniversario(LocalDate.parse(scanner.nextLine()));
+                    break;
+                default:
+                    System.out.println("║                                               ║");
+                    System.out.println("║               Opção inválida!                 ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
+                    return;
+            }
+                funcionarioController.atualizarFuncionario(funcionarioParaEditar);
+
+                System.out.println("║                                               ║");
+                System.out.println("║      Funcionario editado com sucesso!         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            } else {
+                
+                System.out.println("║                                               ║");
+                System.out.println("║         Funcionario não encontrado.           ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            }
+    }
+
+    private static void removerFuncionario(Scanner scanner, FuncionarioView funcionarioView) {
+        System.out.println("╔══════════════ Remover Funcionario ════════════╗");
+        System.out.println("║                                               ║");
+        System.out.print("║ Informe o ID do funcionario: ");
+        long idFuncionarioRemover = scanner.nextLong();
+        scanner.nextLine(); 
+        
+        Funcionario funcionarioParaRemover = funcionarioController.obterFuncionarioPorId(idFuncionarioRemover);
+        
+        if (funcionarioParaRemover != null) {
+            funcionarioView.mostrarDetalhesFuncionario(funcionarioParaRemover);
+            System.out.println("║                                               ║");
+            System.out.print("║ Tem certeza que deseja remover? (s/n):");
+            String confirmacao = scanner.nextLine().toLowerCase();
+        
+            if (confirmacao.equals("s")) {
+                funcionarioController.removerFuncionario(funcionarioParaRemover);
+                System.out.println("║                                               ║");
+                System.out.println("║         Funcionario removido com sucesso!         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            } else {
+                System.out.println("║                                               ║");
+                System.out.println("║               Remoção cancelada.              ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            }
+        } else { 
+            System.out.println("║                                               ║");
+            System.out.println("║          Funcionario não encontrado.          ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+        }
+    }
 }
+
