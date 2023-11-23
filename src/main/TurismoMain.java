@@ -429,33 +429,76 @@ public class TurismoMain {
 
     // Métodos para adicionar, editar e remover clientes
     private static void adicionarCliente(Scanner scanner) {
-        
         System.out.println("╔═══════════════ Adicionar Cliente ═════════════╗");
-    
+
         System.out.print("║ Nome: ");
         String nome = scanner.nextLine();
-    
-        System.out.print("║ Documento: ");
-        long documento = scanner.nextLong();
-    
-        System.out.print("║ ID: ");
-        long id = scanner.nextLong();
-        scanner.nextLine();
-    
-        System.out.print("║ Telefone: ");
-        long telefone = scanner.nextLong();
-    
-        System.out.print("║ E-mail: ");
-        String email = scanner.nextLine();
-        scanner.nextLine();
-    
-        System.out.print("║ Aniversário (AAAA-MM-DD): ");
-        LocalDate aniversario = LocalDate.parse(scanner.nextLine());
-    
-        Cliente novoCliente = new Cliente(nome, documento, id, telefone, email, aniversario);
-    
-        clienteController.adicionarCliente(novoCliente);
 
+        long documento = 0;
+        boolean documentoValido = false;
+        while (!documentoValido) {
+            try {
+                System.out.print("║ Documento: ");
+                documento = scanner.nextLong(); 
+                documentoValido = true;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("║ Documento inválido. Digite apenas números.");
+                scanner.next(); // Limpa o buffer
+            }
+        }
+
+        long id = 0;
+        boolean idValido = false;
+        while (!idValido) {
+            try {
+                System.out.print("║ ID: ");
+                id = scanner.nextLong();
+                idValido = true;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("║ ID inválido. Digite apenas números.");
+                scanner.next(); // Limpa o buffer
+            }
+        }
+        scanner.nextLine(); // Limpa o buffer
+
+        long telefone = 0;
+        boolean telefoneValido = false;
+        while (!telefoneValido) {
+            try {
+                System.out.print("║ Telefone: ");
+                telefone = scanner.nextLong();
+                telefoneValido = true;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("║ Telefone inválido. Digite apenas números.");
+                scanner.next(); // Limpa o buffer
+            }
+        }
+
+        String email = "";
+        boolean emailValido = false;
+        while (!emailValido) {
+            System.out.print("║ E-mail: ");
+            email = scanner.nextLine();
+            if (email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+                emailValido = true;
+            } else {
+                System.out.println("║ E-mail inválido. ");
+            }
+        }
+
+        LocalDate aniversario = null;
+        boolean dataValida = false;
+        while (!dataValida) {
+            try {
+                System.out.print("║ Aniversário (AAAA-MM-DD): ");
+                aniversario = LocalDate.parse(scanner.nextLine());
+                dataValida = true;
+            } catch (java.time.format.DateTimeParseException e) {
+                System.out.println("║ Data de aniversário inválida.");
+            }
+        }
+
+   
         System.out.println("║                                               ║");
         System.out.println("║         Cliente adicionado com sucesso!       ║");
         System.out.println("╚═══════════════════════════════════════════════╝");
@@ -557,3 +600,4 @@ public class TurismoMain {
         }
     }
 }
+
