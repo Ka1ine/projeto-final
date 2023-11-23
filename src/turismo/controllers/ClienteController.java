@@ -10,5 +10,4 @@ public interface ClienteController {
     Cliente obterClientePorId(long id);
     void atualizarCliente(Cliente cliente);
     void removerCliente(Cliente cliente);
-    
 }
