@@ -11,9 +11,11 @@ import turismo.models.Pessoas.Funcionario;
 public class ClienteControllerImpl implements ClienteController {
     private List<Cliente> clientes;
     private LocalDate date;
+    private ArrayList<Reserva> reservas;
 
     public ClienteControllerImpl() {
         clientes = new ArrayList<>();
+        reservas = new ArrayList<>();
     }
 
     @Override
@@ -28,20 +30,30 @@ public class ClienteControllerImpl implements ClienteController {
     }
 
 
-    public void reservar(Cliente cliente, Reservavel pacote, Funcionario funcionario) throws ViagemCheiaException{
+    public void reservar(Cliente cliente, Reservavel pacote, Funcionario funcionario,long id) throws ViagemCheiaException{
         try {
             if (pacote.getReservas().size() >= pacote.getMaxReservas()){
                 throw new ViagemCheiaException("Viagem ja lotada");
             }
-            Reserva reserva = new Reserva<>(pacote, cliente, LocalDate.now() ,funcionario);
+            Reserva reserva = new Reserva(pacote, cliente, LocalDate.now() ,funcionario,id);
             cliente.getReservas().add(reserva);
             pacote.getReservas().add(reserva);
+            reservas.add(reserva);
         } catch (IllegalArgumentException e) {
             System.err.println("Erro ao fazer a reserva, por favor tente novamente");
         }
     }
 
-    class ViagemCheiaException extends Exception{
+    public Reserva obterReservaPorId(long id){
+        for(Reserva reserva:reservas){
+            if (reserva.getIdReserva() == id){
+                return reserva;
+            }
+        }
+        return null;
+    }
+
+    public class ViagemCheiaException extends Exception{
         public ViagemCheiaException(String mensagem){
             super(mensagem);
         }

@@ -10,11 +10,15 @@ import java.util.Scanner;
 import java.util.Vector;
 
 import turismo.controllers.*;
+import turismo.controllers.ClienteControllerImpl.ViagemCheiaException;
 import turismo.models.*;
+import turismo.models.Adm.Reserva;
 import turismo.models.Pacotes.Destino;
 import turismo.models.Pacotes.Pacote;
 import turismo.models.Pacotes.Pacote.CategoriaViagem;
+import turismo.models.Pacotes.Pacote.atrativos;
 import turismo.models.Pessoas.Cliente;
+import turismo.models.Pessoas.Funcionario;
 import turismo.views.*;
 
 public class TurismoMain {
@@ -152,14 +156,18 @@ public class TurismoMain {
             switch (opcaoViagens) {
                 case 1:
                     //acessar reserva
+                    acessarReserva(scanner);
                     break;
                 case 2:
                     //criar reserva
+                    fazerReserva(scanner);
                     break;
                 case 3:
                     // editar reserva
+                    editarReserva(scanner);
                     break;
                 case 4:
+                    removerReserva(scanner);
                     // remover reserva
                     break;
                 case 5:
@@ -169,6 +177,8 @@ public class TurismoMain {
             }
         }
     }    
+
+
 
     private static void gerenciamentoPacotes(Scanner scanner) {
         while (true) {
@@ -410,8 +420,53 @@ public class TurismoMain {
         System.out.println("Operação de Renovação de Empréstimos");
     }
 
+    //Bloco funções reserva
+
     private static void fazerReserva(Scanner scanner) {
-        System.out.println("Operação de Reserva de Viagens");
+        System.out.println("╔═══════ Operação de Reserva de Viagens ════════╗");
+        System.out.println("║                                               ║");
+        System.out.println("║ Id do Cliente");
+        long idCliente = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("║ Id de viagem");
+        long idPacote = scanner.nextLong();
+        scanner.nextLine();
+        System.out.println("║ Id funcionario");
+        long idFuncionario = scanner.nextLong();
+        scanner.nextLine();
+        Funcionario funcionario = new Funcionario("Gio",8,2,2,"gio@gmail",LocalDate.parse("2002-05-15"));
+        System.out.println("║ Id da Reserva");
+        long idReserva = scanner.nextLong();
+        scanner.nextLine();
+        try {
+            clienteController.reservar(clienteController.obterClientePorId(idCliente),turismoController.obterReservavelporId(idPacote),funcionario,idReserva);
+            System.out.println("║                                               ║");
+            System.out.println("║         Viagem Reservada com sucesso!         ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+        } catch (ViagemCheiaException e) {
+            e.printStackTrace();
+        }
+    }
+   
+    private static void removerReserva(Scanner scanner) {
+    }
+
+    private static void editarReserva(Scanner scanner) {
+    }
+
+    private static void acessarReserva(Scanner scanner) {
+        System.out.println("╔════════════════ Acessar Reserva ══════════════╗");
+        System.out.println("║                                               ║");
+        System.out.println("║ Informe o Id da reserva: ");
+        long idReserva = scanner.nextLong();
+        Reserva reserva = clienteController.obterReservaPorId(idReserva);
+        System.out.println("║                                               ║");
+        System.out.println("║ ID: "+ idReserva);
+        System.out.println("║ Id da Viagem: "+ reserva.getReserva().getId());
+        System.out.println("║ Id do Cliente: "+ reserva.getCliente().getId());
+        System.out.println("║ Id do Funcionário: "+ reserva.getFuncionario().getId());
+        System.out.println("║                                               ║");
+        System.out.println("╚═══════════════════════════════════════════════╝");
     }
 
     // Métodos para adicionar, editar e remover viagens
@@ -467,6 +522,7 @@ public class TurismoMain {
             try {
                 System.out.print("║ Telefone: ");
                 telefone = scanner.nextLong();
+                scanner.nextLine();
                 telefoneValido = true;
             } catch (java.util.InputMismatchException e) {
                 System.out.println("║ Telefone inválido. Digite apenas números.");
@@ -498,7 +554,8 @@ public class TurismoMain {
             }
         }
 
-   
+        Cliente cliente = new Cliente(nome, documento, id, telefone, email, aniversario);
+        clienteController.listarClientes().add(cliente);
         System.out.println("║                                               ║");
         System.out.println("║         Cliente adicionado com sucesso!       ║");
         System.out.println("╚═══════════════════════════════════════════════╝");
@@ -526,7 +583,6 @@ public class TurismoMain {
             
             int opcaoEdicao = scanner.nextInt();
             scanner.nextLine();
-
             System.out.println("║                                               ║");
             switch (opcaoEdicao) {
                 case 1:

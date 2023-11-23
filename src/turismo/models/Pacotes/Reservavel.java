@@ -8,6 +8,6 @@ public interface Reservavel {
 
     int getMaxReservas();
 
-    ArrayList<Reserva<Reservavel>> getReservas();
-
+    ArrayList<Reserva> getReservas();
+    long getId();
 }

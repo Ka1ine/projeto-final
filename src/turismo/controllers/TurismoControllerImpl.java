@@ -3,6 +3,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import turismo.models.Adm.Reserva;
 import turismo.models.Pacotes.*;
 import turismo.models.Pacotes.Destino.CategoriaDestino;
 import turismo.models.Pacotes.Pacote.CategoriaViagem;
@@ -33,6 +35,16 @@ public class TurismoControllerImpl implements TurismoController {
         return true;
     }
 
+    @Override
+    public Reservavel obterReservavelporId(long id) {
+        for (Reservavel reservavel : pacotes) {
+            if (reservavel.getId() == id) {
+                return reservavel;
+                }
+            }
+            return null; 
+    }
+    
     @Override
     public void addPacote(Scanner scanner){
         System.out.println("Informe o nome do destino:");
@@ -337,4 +349,5 @@ public class TurismoControllerImpl implements TurismoController {
                 System.out.println("Opção inválida. Por favor, escolha novamente.");
         }
     }
+
 }
