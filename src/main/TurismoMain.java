@@ -687,7 +687,7 @@ public class TurismoMain {
     // Métodos para adicionar, editar e remover funcionarios
     private static void adicionarFuncionario(Scanner scanner) {
         
-        System.out.println("╔════════════ Adicionar Funcionario ═══════════╗");
+        System.out.println("╔════════════ Adicionar Funcionário ═══════════╗");
     
         System.out.print("║ Nome: ");
         String nome = scanner.nextLine();
@@ -719,7 +719,7 @@ public class TurismoMain {
     }
 
     private static void editarFuncionario(Scanner scanner, FuncionarioView funcionarioView) {
-        System.out.println("╔═════════════ Editar Funcionario ══════════════╗");
+        System.out.println("╔═════════════ Editar Funcionário ══════════════╗");
         System.out.println("║                                               ║");
         System.out.print("║ Informe o ID do funcionário: ");
         long idFuncionarioEditar = scanner.nextLong();
@@ -772,20 +772,20 @@ public class TurismoMain {
                 funcionarioController.atualizarFuncionario(funcionarioParaEditar);
 
                 System.out.println("║                                               ║");
-                System.out.println("║      Funcionario editado com sucesso!         ║");
+                System.out.println("║      Funcionário editado com sucesso!         ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
             } else {
                 
                 System.out.println("║                                               ║");
-                System.out.println("║         Funcionario não encontrado.           ║");
+                System.out.println("║         Funcionário não encontrado.           ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
             }
     }
 
     private static void removerFuncionario(Scanner scanner, FuncionarioView funcionarioView) {
-        System.out.println("╔══════════════ Remover Funcionario ════════════╗");
+        System.out.println("╔══════════════ Remover Funcionário ════════════╗");
         System.out.println("║                                               ║");
-        System.out.print("║ Informe o ID do funcionario: ");
+        System.out.print("║ Informe o ID do funcionário: ");
         long idFuncionarioRemover = scanner.nextLong();
         scanner.nextLine(); 
         
@@ -800,7 +800,7 @@ public class TurismoMain {
             if (confirmacao.equals("s")) {
                 funcionarioController.removerFuncionario(funcionarioParaRemover);
                 System.out.println("║                                               ║");
-                System.out.println("║         Funcionario removido com sucesso!         ║");
+                System.out.println("║         Funcionário removido com sucesso!         ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
             } else {
                 System.out.println("║                                               ║");
@@ -809,7 +809,7 @@ public class TurismoMain {
             }
         } else { 
             System.out.println("║                                               ║");
-            System.out.println("║          Funcionario não encontrado.          ║");
+            System.out.println("║          Funcionário não encontrado.          ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
         }
     }
