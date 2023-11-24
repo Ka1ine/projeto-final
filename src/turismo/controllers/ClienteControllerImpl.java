@@ -10,7 +10,6 @@ import turismo.models.Pessoas.Funcionario;
 
 public class ClienteControllerImpl implements ClienteController {
     private List<Cliente> clientes;
-    private LocalDate date;
     private ArrayList<Reserva> reservas;
 
     public ClienteControllerImpl() {
@@ -25,7 +24,6 @@ public class ClienteControllerImpl implements ClienteController {
 
     @Override
     public Cliente buscarClientePorIdentificacao(String identificacao) {
-        // Lógica de busca
         return null;
     }
 

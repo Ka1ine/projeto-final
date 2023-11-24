@@ -9,12 +9,8 @@ import java.util.Scanner;
 
 import turismo.controllers.*;
 import turismo.controllers.ClienteControllerImpl.ViagemCheiaException;
-import turismo.models.*;
 import turismo.models.Adm.Reserva;
-import turismo.models.Pacotes.Destino;
 import turismo.models.Pacotes.Pacote;
-import turismo.models.Pacotes.Pacote.CategoriaViagem;
-import turismo.models.Pacotes.Pacote.atrativos;
 import turismo.models.Pessoas.Cliente;
 import turismo.models.Pessoas.Funcionario;
 import turismo.views.*;
@@ -43,9 +39,8 @@ public class TurismoMain {
             System.out.println("║                                               ║");
             System.out.println("║ 1. Gerenciamento de Pacotes                   ║");
             System.out.println("║ 2. Gerenciamento de Clientes                  ║");
-            System.out.println("║ 3. Geração de Relatórios e Estatísticas       ║");
-            System.out.println("║ 4. Administração de Funcionários              ║");
-            System.out.println("║ 5. Sair                                       ║");
+            System.out.println("║ 3. Administração de Funcionários              ║");
+            System.out.println("║ 4. Sair                                       ║");
             System.out.println("║                                               ║");
             System.out.println("║ Escolha uma opção:                            ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
@@ -61,19 +56,18 @@ public class TurismoMain {
                     menuGerenciamentoClientes(scanner, clienteView);
                     break;
                 case 3:
-                    // Menu de Geração de Relatórios e Estatísticas
-                    // menuRelatoriosEstatisticas(scanner, relatorioView);
-                    break;
-                case 4:
-                    // Menu de Administração de Funcionários
                     menuAdministracaoFuncionarios(scanner, funcionarioView);
                     break;
-                case 5:
-                    System.out.println("Saindo do menu. Até logo!");
+                case 4:
+                    System.out.println("║                                               ║");
+                    System.out.println("║          Saindo do menu. Até logo!            ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
                     scanner.close();
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
@@ -106,7 +100,9 @@ public class TurismoMain {
                 case 4:
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
@@ -133,7 +129,9 @@ public class TurismoMain {
                 case 2:
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
@@ -174,7 +172,9 @@ public class TurismoMain {
                 case 5:
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }    
@@ -209,21 +209,23 @@ public class TurismoMain {
                 case 4:
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
 
     private static void menuGerenciamentoListagemPacotes(Scanner scanner, TurismoView turismoView) {
         while (true) {
-            System.out.println("---- Menu Gerenciamento de Filtros ----");
-            System.out.println();
-            System.out.println("1. Listar Todos os Pacotes");
-            System.out.println("2. Filtrar Pacotes");
-            System.out.println("3. Voltar");
-            System.out.println();
-            System.out.println();
-            System.out.print("Escolha uma opção: ");
+            System.out.println("╔═════════════════ Menu Filtros ════════════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Listar Todos os Pacotes                    ║");
+            System.out.println("║ 2. Filtrar Pacotes                            ║");
+            System.out.println("║ 3. Voltar                                     ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
 
             int opcaoFiltro = scanner.nextInt();
             scanner.nextLine();
@@ -239,7 +241,9 @@ public class TurismoMain {
                 case 3:
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
@@ -248,16 +252,16 @@ public class TurismoMain {
         List<? extends Pacote> viagens = turismoController.consultarViagensDisponiveis();
 
         while (true) {
-            System.out.println("---- Menu Gerenciamento de Filtros ----");
-            System.out.println();
-            System.out.println("1. Adicionar Filtro de Destino");
-            System.out.println("2. Adicionar Filtro de Categoria");
-            System.out.println("3. Adicionar Filtro de Preço");
-            System.out.println("4. Listar Pacotes");
-            System.out.println("5. Voltar");
-            System.out.println();
-            System.out.println();
-            System.out.print("Escolha uma opção: ");
+            System.out.println("╔════════ Menu Gerenciamento de Filtros ════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Adicionar Filtro de Destino                ║");
+            System.out.println("║ 2. Adicionar Filtro de Categoria              ║");
+            System.out.println("║ 3. Adicionar Filtro de Preço                  ║");
+            System.out.println("║ 4. Listar Pacotes                             ║");
+            System.out.println("║ 5. Voltar                                     ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
 
             int opcaoFiltro = scanner.nextInt();
             scanner.nextLine();
@@ -276,7 +280,7 @@ public class TurismoMain {
                         indexDestino += 1;
                     }
 
-                    System.out.print("Selecione o destino: ");
+                    System.out.print("║ Selecione o destino: ");
                     int valorDestino = menuValorFiltro(scanner);
                     System.err.printf("%d", valorDestino);
                     viagens.removeIf(p -> (p.getDestino().getNome() != set.toArray()[valorDestino - 1]));
@@ -292,12 +296,12 @@ public class TurismoMain {
 
                     System.out.println();
                     System.out.println();
-                    System.out.print("Selecione a categoria: ");
+                    System.out.print("║ Selecione a categoria: ");
                     int valorCategoria = menuValorFiltro(scanner);
                     viagens.removeIf(p -> (p.getCategoria() != values.toArray()[valorCategoria - 1]));
                     break;
                 case 3:
-                    System.out.print("Digite o preço máximo: ");
+                    System.out.print("║ Digite o preço máximo: ");
                     int valorPreco = menuValorFiltro(scanner);
                     viagens.removeIf(p -> (p.getPreco() > valorPreco));
                     break;
@@ -311,7 +315,9 @@ public class TurismoMain {
                 case 5:
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
@@ -355,8 +361,8 @@ public class TurismoMain {
                 case 5:
                     return;
                 default:
-                    System.out.println("║                                               ║");
-                    System.out.println("║ Opção inválida. Por favor, escolha novamente. ║");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
                     System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
@@ -424,7 +430,9 @@ public class TurismoMain {
                     removerFuncionario(scanner, funcionarioView);
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
@@ -531,10 +539,10 @@ public class TurismoMain {
                 idValido = true;
             } catch (java.util.InputMismatchException e) {
                 System.out.println("║ ID inválido. Digite apenas números.");
-                scanner.next(); // Limpa o buffer
+                scanner.next(); 
             }
         }
-        scanner.nextLine(); // Limpa o buffer
+        scanner.nextLine();
 
         long telefone = 0;
         boolean telefoneValido = false;
@@ -546,7 +554,7 @@ public class TurismoMain {
                 telefoneValido = true;
             } catch (java.util.InputMismatchException e) {
                 System.out.println("║ Telefone inválido. Digite apenas números.");
-                scanner.next(); // Limpa o buffer
+                scanner.next(); 
             }
         }
 
@@ -806,4 +814,3 @@ public class TurismoMain {
         }
     }
 }
-

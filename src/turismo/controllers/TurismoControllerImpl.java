@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import turismo.models.Adm.Reserva;
 import turismo.models.Pacotes.*;
 import turismo.models.Pacotes.Destino.CategoriaDestino;
 import turismo.models.Pacotes.Pacote.CategoriaViagem;

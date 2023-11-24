@@ -59,6 +59,4 @@ public class Reserva {
     public void setIdReserva(long idReserva) {
         this.idReserva = idReserva;
     }
-    
-    
 }

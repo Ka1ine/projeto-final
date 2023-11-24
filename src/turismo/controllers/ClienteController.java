@@ -15,7 +15,5 @@ public interface ClienteController {
     void atualizarCliente(Cliente cliente);
     void removerCliente(Cliente cliente);
     void reservar(Cliente cliente, Reservavel viagem, Funcionario funcionario,long id) throws ViagemCheiaException;
-    public Reserva obterReservaPorId(long id);
-
-    
+    public Reserva obterReservaPorId(long id); 
 }

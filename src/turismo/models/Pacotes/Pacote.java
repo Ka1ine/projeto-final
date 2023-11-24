@@ -124,7 +124,6 @@ public class Pacote implements Reservavel{
     public long getId() {
       return this.idPacote;
     }
-
 }
 
 

@@ -2,7 +2,6 @@ package turismo.controllers;
 import java.util.List;
 import java.util.Scanner;
 
-import turismo.models.Adm.Reserva;
 import turismo.models.Pacotes.Pacote;
 import turismo.models.Pacotes.Reservavel;
 import turismo.models.Pessoas.Cliente;
