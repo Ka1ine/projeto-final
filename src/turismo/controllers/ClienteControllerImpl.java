@@ -7,6 +7,7 @@ import turismo.models.Adm.Reserva;
 import turismo.models.Pacotes.Reservavel;
 import turismo.models.Pessoas.Cliente;
 import turismo.models.Pessoas.Funcionario;
+import turismo.models.Pessoas.Usuario;
 
 public class ClienteControllerImpl implements ClienteController {
     private List<Cliente> clientes;
@@ -88,6 +89,17 @@ public class ClienteControllerImpl implements ClienteController {
     @Override
     public ArrayList<Reserva> getReservas() {
         return this.reservas;
+    }
+
+    @Override
+    public Boolean idDisponivel(long id)  {
+        for (Usuario user : clientes) {
+            if (user.getId() == id) {
+                // ID usado
+                return false;
+            }
+        }
+        return true;
     }
    
 }

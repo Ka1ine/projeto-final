@@ -18,6 +18,5 @@ public interface ClienteController {
     void reservar(Cliente cliente, Reservavel viagem, Funcionario funcionario,long id) throws ViagemCheiaException;
     public Reserva obterReservaPorId(long id);
     ArrayList<Reserva> getReservas();
-
-    
+    public Boolean idDisponivel(long id);
 }

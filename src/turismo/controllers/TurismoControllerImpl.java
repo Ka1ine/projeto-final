@@ -175,8 +175,21 @@ public class TurismoControllerImpl implements TurismoController {
         int maxReservas = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.println("Informe o código do pacote:");
-        int codigo = scanner.nextInt();
+        long id = 0;
+        boolean idValido = false;
+        while (!idValido) {
+            try {
+                System.out.print("Informe o código do pacote:");
+                id = scanner.nextLong();
+                idValido = idDisponivel(id);
+                if(idValido == false){
+                    System.out.println("ID inválido. ID já está sendo usado.");
+                }
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("ID inválido. Digite apenas números.");
+                scanner.next(); 
+            }
+        }
         scanner.nextLine();
 
         Pacote novoPacote = new Pacote(
@@ -188,7 +201,7 @@ public class TurismoControllerImpl implements TurismoController {
             hotel,
             categoria,
             maxReservas,
-            codigo
+            id
         );
 
         pacotes.add(novoPacote);
@@ -347,6 +360,17 @@ public class TurismoControllerImpl implements TurismoController {
             default:
                 System.out.println("Opção inválida. Por favor, escolha novamente.");
         }
+    }
+
+    @Override
+    public Boolean idDisponivel(long id)  {
+        for (Pacote pack : pacotes) {
+            if (pack.getId() == id) {
+                // ID usado
+                return false;
+            }
+        }
+        return true;
     }
 
 }
