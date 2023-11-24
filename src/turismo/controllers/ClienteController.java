@@ -19,4 +19,5 @@ public interface ClienteController {
     public Reserva obterReservaPorId(long id);
     ArrayList<Reserva> getReservas();
     public Boolean idDisponivel(long id);
+    public Boolean idDisponivelReserva(long id);
 }

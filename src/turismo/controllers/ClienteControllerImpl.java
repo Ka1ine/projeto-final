@@ -95,7 +95,17 @@ public class ClienteControllerImpl implements ClienteController {
     public Boolean idDisponivel(long id)  {
         for (Usuario user : clientes) {
             if (user.getId() == id) {
-                // ID usado
+                // ID usado, ID existe
+                return false;
+            }
+        }
+        return true;
+    }
+    @Override
+    public Boolean idDisponivelReserva(long id)  {
+        for (Reserva reserva : reservas) {
+            if (reserva.getId() == id) {
+                // ID usado, ID existe
                 return false;
             }
         }
