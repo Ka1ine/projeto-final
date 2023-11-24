@@ -122,7 +122,7 @@ public class Pacote implements Reservavel{
 
     @Override
     public long getId() {
-      return this.idPacote;
+      return this.codigo;
     }
 }
 

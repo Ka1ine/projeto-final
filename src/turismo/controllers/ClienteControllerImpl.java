@@ -84,5 +84,10 @@ public class ClienteControllerImpl implements ClienteController {
     public void removerCliente(Cliente cliente) {
         clientes.remove(cliente);  
     }
+
+    @Override
+    public ArrayList<Reserva> getReservas() {
+        return this.reservas;
+    }
    
 }

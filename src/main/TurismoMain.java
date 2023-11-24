@@ -1,6 +1,7 @@
 package main;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -10,6 +11,7 @@ import java.util.Scanner;
 import turismo.controllers.*;
 import turismo.controllers.ClienteControllerImpl.ViagemCheiaException;
 import turismo.models.Adm.Reserva;
+import turismo.models.Pacotes.Destino;
 import turismo.models.Pacotes.Pacote;
 import turismo.models.Pessoas.Cliente;
 import turismo.models.Pessoas.Funcionario;
@@ -32,6 +34,15 @@ public class TurismoMain {
         FuncionarioView funcionarioView = new FuncionarioViewImpl(funcionarioController);
         // RelatorioView relatorioView = new RelatorioViewImpl(relatorioController);
 
+        //Objetos teste para facilitar nossa vida
+        Cliente clienteTeste = new Cliente("Jojo", 123,2,12, "jp@gmail.com", LocalDate.parse("2002-05-15"));
+        clienteController.adicionarCliente(clienteTeste);
+        Destino destinoTeste = new Destino("jacarei", Destino.CategoriaDestino.CIDADE, "velhos");
+        ArrayList<Pacote.atrativos> atrativos = new ArrayList<>();
+        atrativos.add(Pacote.atrativos.piscina);
+        atrativos.add(Pacote.atrativos.spa);
+        Pacote pacoteTeste = new Pacote(destinoTeste, LocalDate.parse("2023-11-23"), 10, 100, atrativos , "Jacareí Palace", Pacote.CategoriaViagem.AVENTURA, 2, 1);
+        turismoController.consultarViagensDisponiveis().add(pacoteTeste);
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -401,6 +412,7 @@ public class TurismoMain {
                 System.out.println("║ 2. Adicionar Funcionário                      ║");
                 System.out.println("║ 3. Editar Funcionário                         ║");
                 System.out.println("║ 4. Remover Funcionário                        ║");
+                System.out.println("║ 5. Voltar                                     ║");
                 System.out.println("║                                               ║");
                 System.out.println("║ Escolha uma opção:                            ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
@@ -429,6 +441,8 @@ public class TurismoMain {
                 case 4:
                     removerFuncionario(scanner, funcionarioView);
                     return;
+                case 5:
+                    return; 
                 default:
                     System.out.println("║                Opção inválida.                ║");
                     System.out.println("║         Por favor, escolha novamente.         ║");
@@ -453,17 +467,14 @@ public class TurismoMain {
     private static void fazerReserva(Scanner scanner) {
         System.out.println("╔═══════ Operação de Reserva de Viagens ════════╗");
         System.out.println("║                                               ║");
-        System.out.println("║ Id do Cliente");
+        System.out.print("║ Id do Cliente: ");
         long idCliente = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("║ Id de viagem");
+        System.out.print("║ Id de Viagem: ");
         long idPacote = scanner.nextLong();
-        scanner.nextLine();
-        System.out.println("║ Id funcionario");
+        System.out.print("║ Id funcionario: ");
         long idFuncionario = scanner.nextLong();
-        scanner.nextLine();
         Funcionario funcionario = new Funcionario("Gio",8,2,2,"gio@gmail",LocalDate.parse("2002-05-15"));
-        System.out.println("║ Id da Reserva");
+        System.out.print("║ Id da Reserva: ");
         long idReserva = scanner.nextLong();
         scanner.nextLine();
         try {
@@ -477,15 +488,88 @@ public class TurismoMain {
     }
    
     private static void removerReserva(Scanner scanner) {
+        System.out.println("╔════════════════ Remover Reserva ══════════════╗");
+        System.out.println("║                                               ║");
+        System.out.print("║ Informe o Id da reserva: ");
+        long idReserva = scanner.nextLong();
+        Reserva reserva = clienteController.obterReservaPorId(idReserva);
+        scanner.nextLine();
+        System.out.println("║                                               ║");
+        System.out.print("║ Tem certeza que quer remover a reserva? (s/n) ");
+        String str = scanner.next();
+        switch (str){
+            case "s":
+                    clienteController.getReservas().remove(reserva);
+                    reserva.getCliente().getReservas().remove(reserva);
+                    reserva.getReserva().getReservas().remove(reserva);
+                System.out.println("║                                               ║");
+                System.out.println("║        Reserva Cancelada com sucesso!         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                return;
+            case "n":
+                System.out.println("║                                               ║");
+                System.out.println("║              Operação Cancelada               ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                return;
+            default:
+                System.out.println("║                                               ║");
+                System.out.println("║               Resposta Inválida               ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                return;
+        }
     }
 
     private static void editarReserva(Scanner scanner) {
+        System.out.println("╔═════════════════ Editar Reserva ══════════════╗");
+        System.out.println("║                                               ║");
+        System.out.print("║ Informe o Id da reserva: ");
+        long idReserva = scanner.nextLong();
+        Reserva reserva = clienteController.obterReservaPorId(idReserva);
+        System.out.println("║                                               ║");
+        System.out.print("║ Escolha o que alterar:                        ║");
+        int opcaoAlt = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("║ 1. Cliente                                    ║");
+        System.out.println("║ 2. Pacote                                     ║");
+        System.out.println("║ 3. Funcionario                                ║");
+        System.out.println("║                                               ║");
+        switch (opcaoAlt){
+            case 1:
+                System.out.print("║ Informe o Id do novo cliente: ");
+                long idNovoC = scanner.nextLong();
+                reserva.setCliente(clienteController.obterClientePorId(idNovoC));
+                System.out.println("║                                               ║");
+                System.out.println("║         Reserva Alterada com sucesso!         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                return;
+            case 2:
+                System.out.print("║ Informe o Id do novo pacote: ");
+                long idNovoP = scanner.nextLong();
+                reserva.setReserva(turismoController.obterReservavelporId(idNovoP));
+                System.out.println("║                                               ║");
+                System.out.println("║         Reserva Alterada com sucesso!         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                break;
+            case 3:
+                System.out.print("║ Informe o Id do novo funcionário: ");
+                long idNovoF = scanner.nextLong();
+                reserva.setFuncionario(funcionarioController.obterFuncionarioPorId(idNovoF));
+                System.out.println("║                                               ║");
+                System.out.println("║         Reserva Alterada com sucesso!         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            default:
+            System.out.println("║                                               ║");
+            System.out.println("║       Entrada inválida, tente novamente!      ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+            return;
+        }
+
     }
 
     private static void acessarReserva(Scanner scanner) {
         System.out.println("╔════════════════ Acessar Reserva ══════════════╗");
         System.out.println("║                                               ║");
-        System.out.println("║ Informe o Id da reserva: ");
+        System.out.print("║ Informe o Id da reserva: ");
         long idReserva = scanner.nextLong();
         Reserva reserva = clienteController.obterReservaPorId(idReserva);
         System.out.println("║                                               ║");
@@ -495,19 +579,6 @@ public class TurismoMain {
         System.out.println("║ Id do Funcionário: "+ reserva.getFuncionario().getId());
         System.out.println("║                                               ║");
         System.out.println("╚═══════════════════════════════════════════════╝");
-    }
-
-    // Métodos para adicionar, editar e remover viagens
-    private static void adicionarViagem(Scanner scanner) {
-        System.out.println("Operação de Adição de Viagem");
-    }
-
-    private static void editarViagem(Scanner scanner) {
-        System.out.println("Operação de Edição de Viagem");
-    }
-
-    private static void removerViagem(Scanner scanner) {
-        System.out.println("Operação de Remoção de Viagem");
     }
 
     // Métodos para adicionar, editar e remover clientes
