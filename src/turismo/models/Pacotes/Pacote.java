@@ -8,7 +8,6 @@ import turismo.models.Adm.Reserva;
 //Classe base para todos os pacotes, inclui atrações e acomodação
 public class Pacote implements Reservavel{
     private Destino destino;
-    private long idPacote;
     private LocalDate dataDisp;
     private int duracao;
     private int preco;

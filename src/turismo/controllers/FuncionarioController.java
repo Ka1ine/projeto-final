@@ -11,4 +11,5 @@ public interface FuncionarioController {
     Funcionario obterFuncionarioPorId(long id);
     void atualizarFuncionario(Funcionario funcionario);
     void removerFuncionario(Funcionario funcionario);
+    public Boolean idDisponivel(long id);
 }

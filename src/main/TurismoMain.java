@@ -37,6 +37,8 @@ public class TurismoMain {
         //Objetos teste para facilitar nossa vida
         Cliente clienteTeste = new Cliente("Jojo", 123,2,12, "jp@gmail.com", LocalDate.parse("2002-05-15"));
         clienteController.adicionarCliente(clienteTeste);
+        Funcionario funcionarioTeste = new Funcionario("Trabalhador", 123,1,12, "jp@gmail.com", LocalDate.parse("2002-05-15"));
+        funcionarioController.adicionarFuncionario(funcionarioTeste);
         Destino destinoTeste = new Destino("jacarei", Destino.CategoriaDestino.CIDADE, "velhos");
         ArrayList<Pacote.atrativos> atrativos = new ArrayList<>();
         atrativos.add(Pacote.atrativos.piscina);
@@ -109,35 +111,6 @@ public class TurismoMain {
                     gerenciamentoPacotes(scanner);
                     break;
                 case 4:
-                    return;
-                default:
-                    System.out.println("║                Opção inválida.                ║");
-                    System.out.println("║         Por favor, escolha novamente.         ║");
-                    System.out.println("╚═══════════════════════════════════════════════╝");
-            }
-        }
-    }
-
-    private static void pacotesDisponiveis(Scanner scanner, TurismoView turismoView) {
-        // List<Pacote> viagens = turismoController.consultarViagensDisponiveis();
-        // turismoView.mostrarViagensDisponiveis(viagens);
-        while (true) {
-            System.out.println("╔═══════════════════ Detalhes ══════════════════╗");
-            System.out.println("║                                               ║");
-            System.out.println("║ 1. Detalhar pacote                            ║");
-            System.out.println("║ 2. Voltar                                     ║");
-            System.out.println("║                                               ║");
-            System.out.println("║ Escolha uma opção:                            ║");
-            System.out.println("╚═══════════════════════════════════════════════╝");
-
-            int opcaoViagens = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcaoViagens) {
-                case 1:
-                    // detalhar();
-                    break;
-                case 2:
                     return;
                 default:
                     System.out.println("║                Opção inválida.                ║");
@@ -451,19 +424,6 @@ public class TurismoMain {
         }
     }
 
-    // Métodos para realizar empréstimo, renovação e reserva
-    private static void realizarEmprestimo(Scanner scanner) {
-        // Lógica para realizar um empréstimo
-        System.out.println("Operação de Empréstimo de Itens");
-    }
-
-    private static void realizarRenovacao(Scanner scanner) {
-        // Lógica para realizar uma renovação de empréstimo
-        System.out.println("Operação de Renovação de Empréstimos");
-    }
-
-    //Bloco funções reserva
-
     private static void fazerReserva(Scanner scanner) {
         System.out.println("╔═══════ Operação de Reserva de Viagens ════════╗");
         System.out.println("║                                               ║");
@@ -607,7 +567,10 @@ public class TurismoMain {
             try {
                 System.out.print("║ ID: ");
                 id = scanner.nextLong();
-                idValido = true;
+                idValido = clienteController.idDisponivel(id);
+                if(idValido == false){
+                    System.out.println("║ ID inválido. ID já está sendo usado.");
+                }
             } catch (java.util.InputMismatchException e) {
                 System.out.println("║ ID inválido. Digite apenas números.");
                 scanner.next(); 
@@ -766,8 +729,21 @@ public class TurismoMain {
         System.out.print("║ Documento: ");
         long documento = scanner.nextLong();
     
-        System.out.print("║ ID: ");
-        long id = scanner.nextLong();
+        long id = 0;
+        boolean idValido = false;
+        while (!idValido) {
+            try {
+                System.out.print("║ ID: ");
+                id = scanner.nextLong();
+                idValido = funcionarioController.idDisponivel(id);
+                if(idValido == false){
+                    System.out.println("║ ID inválido. ID já está sendo usado.");
+                }
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("║ ID inválido. Digite apenas números.");
+                scanner.next(); 
+            }
+        }
         scanner.nextLine();
     
         System.out.print("║ Telefone: ");
