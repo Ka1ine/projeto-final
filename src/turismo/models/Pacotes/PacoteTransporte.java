@@ -33,5 +33,4 @@ public class PacoteTransporte extends Pacote{
     public void setMetodo(MetodoTransporte metodo) {
         this.metodo = metodo;
     }
-    
 }

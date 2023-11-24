@@ -48,7 +48,6 @@ public class FuncionarioControllerImpl implements FuncionarioController {
 
     @Override
     public Funcionario buscarFuncionarioPorIdentificacao(String identificacao) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'buscarFuncionarioPorIdentificacao'");
     }
 }

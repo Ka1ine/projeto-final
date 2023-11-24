@@ -1,6 +1,7 @@
 package main;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -8,10 +9,12 @@ import java.util.List;
 import java.util.Scanner;
 
 import turismo.controllers.*;
+import turismo.controllers.ClienteControllerImpl.ViagemCheiaException;
+import turismo.models.Adm.Reserva;
+import turismo.models.Pacotes.Destino;
 import turismo.models.Pacotes.Pacote;
 import turismo.models.Pessoas.Cliente;
 import turismo.models.Pessoas.Funcionario;
-import turismo.models.Pessoas.Gerente;
 import turismo.views.*;
 
 public class TurismoMain {
@@ -31,6 +34,15 @@ public class TurismoMain {
         FuncionarioView funcionarioView = new FuncionarioViewImpl(funcionarioController);
         // RelatorioView relatorioView = new RelatorioViewImpl(relatorioController);
 
+        //Objetos teste para facilitar nossa vida
+        Cliente clienteTeste = new Cliente("Jojo", 123,2,12, "jp@gmail.com", LocalDate.parse("2002-05-15"));
+        clienteController.adicionarCliente(clienteTeste);
+        Destino destinoTeste = new Destino("jacarei", Destino.CategoriaDestino.CIDADE, "velhos");
+        ArrayList<Pacote.atrativos> atrativos = new ArrayList<>();
+        atrativos.add(Pacote.atrativos.piscina);
+        atrativos.add(Pacote.atrativos.spa);
+        Pacote pacoteTeste = new Pacote(destinoTeste, LocalDate.parse("2023-11-23"), 10, 100, atrativos , "Jacareí Palace", Pacote.CategoriaViagem.AVENTURA, 2, 1);
+        turismoController.consultarViagensDisponiveis().add(pacoteTeste);
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -38,9 +50,8 @@ public class TurismoMain {
             System.out.println("║                                               ║");
             System.out.println("║ 1. Gerenciamento de Pacotes                   ║");
             System.out.println("║ 2. Gerenciamento de Clientes                  ║");
-            System.out.println("║ 3. Geração de Relatórios e Estatísticas       ║");
-            System.out.println("║ 4. Administração de Funcionários              ║");
-            System.out.println("║ 5. Sair                                       ║");
+            System.out.println("║ 3. Administração de Funcionários              ║");
+            System.out.println("║ 4. Sair                                       ║");
             System.out.println("║                                               ║");
             System.out.println("║ Escolha uma opção:                            ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
@@ -56,19 +67,18 @@ public class TurismoMain {
                     menuGerenciamentoClientes(scanner, clienteView);
                     break;
                 case 3:
-                    // Menu de Geração de Relatórios e Estatísticas
-                    // menuRelatoriosEstatisticas(scanner, relatorioView);
-                    break;
-                case 4:
-                    // Menu de Administração de Funcionários
                     menuAdministracaoFuncionarios(scanner, funcionarioView);
                     break;
-                case 5:
-                    System.out.println("Saindo do menu. Até logo!");
+                case 4:
+                    System.out.println("║                                               ║");
+                    System.out.println("║          Saindo do menu. Até logo!            ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
                     scanner.close();
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
@@ -101,7 +111,9 @@ public class TurismoMain {
                 case 4:
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
@@ -128,7 +140,9 @@ public class TurismoMain {
                 case 2:
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
@@ -152,23 +166,31 @@ public class TurismoMain {
             switch (opcaoViagens) {
                 case 1:
                     //acessar reserva
+                    acessarReserva(scanner);
                     break;
                 case 2:
                     //criar reserva
+                    fazerReserva(scanner);
                     break;
                 case 3:
                     // editar reserva
+                    editarReserva(scanner);
                     break;
                 case 4:
+                    removerReserva(scanner);
                     // remover reserva
                     break;
                 case 5:
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }    
+
+
 
     private static void gerenciamentoPacotes(Scanner scanner) {
         while (true) {
@@ -198,21 +220,23 @@ public class TurismoMain {
                 case 4:
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
 
     private static void menuGerenciamentoListagemPacotes(Scanner scanner, TurismoView turismoView) {
         while (true) {
-            System.out.println("---- Menu Gerenciamento de Filtros ----");
-            System.out.println();
-            System.out.println("1. Listar Todos os Pacotes");
-            System.out.println("2. Filtrar Pacotes");
-            System.out.println("3. Voltar");
-            System.out.println();
-            System.out.println();
-            System.out.print("Escolha uma opção: ");
+            System.out.println("╔═════════════════ Menu Filtros ════════════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Listar Todos os Pacotes                    ║");
+            System.out.println("║ 2. Filtrar Pacotes                            ║");
+            System.out.println("║ 3. Voltar                                     ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
 
             int opcaoFiltro = scanner.nextInt();
             scanner.nextLine();
@@ -228,7 +252,9 @@ public class TurismoMain {
                 case 3:
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
@@ -237,16 +263,16 @@ public class TurismoMain {
         List<? extends Pacote> viagens = turismoController.consultarViagensDisponiveis();
 
         while (true) {
-            System.out.println("---- Menu Gerenciamento de Filtros ----");
-            System.out.println();
-            System.out.println("1. Adicionar Filtro de Destino");
-            System.out.println("2. Adicionar Filtro de Categoria");
-            System.out.println("3. Adicionar Filtro de Preço");
-            System.out.println("4. Listar Pacotes");
-            System.out.println("5. Voltar");
-            System.out.println();
-            System.out.println();
-            System.out.print("Escolha uma opção: ");
+            System.out.println("╔════════ Menu Gerenciamento de Filtros ════════╗");
+            System.out.println("║                                               ║");
+            System.out.println("║ 1. Adicionar Filtro de Destino                ║");
+            System.out.println("║ 2. Adicionar Filtro de Categoria              ║");
+            System.out.println("║ 3. Adicionar Filtro de Preço                  ║");
+            System.out.println("║ 4. Listar Pacotes                             ║");
+            System.out.println("║ 5. Voltar                                     ║");
+            System.out.println("║                                               ║");
+            System.out.println("║ Escolha uma opção:                            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
 
             int opcaoFiltro = scanner.nextInt();
             scanner.nextLine();
@@ -265,7 +291,7 @@ public class TurismoMain {
                         indexDestino += 1;
                     }
 
-                    System.out.print("Selecione o destino: ");
+                    System.out.print("║ Selecione o destino: ");
                     int valorDestino = menuValorFiltro(scanner);
                     System.err.printf("%d", valorDestino);
                     viagens.removeIf(p -> (p.getDestino().getNome() != set.toArray()[valorDestino - 1]));
@@ -281,12 +307,12 @@ public class TurismoMain {
 
                     System.out.println();
                     System.out.println();
-                    System.out.print("Selecione a categoria: ");
+                    System.out.print("║ Selecione a categoria: ");
                     int valorCategoria = menuValorFiltro(scanner);
                     viagens.removeIf(p -> (p.getCategoria() != values.toArray()[valorCategoria - 1]));
                     break;
                 case 3:
-                    System.out.print("Digite o preço máximo: ");
+                    System.out.print("║ Digite o preço máximo: ");
                     int valorPreco = menuValorFiltro(scanner);
                     viagens.removeIf(p -> (p.getPreco() > valorPreco));
                     break;
@@ -300,7 +326,9 @@ public class TurismoMain {
                 case 5:
                     return;
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
@@ -344,8 +372,8 @@ public class TurismoMain {
                 case 5:
                     return;
                 default:
-                    System.out.println("║                                               ║");
-                    System.out.println("║ Opção inválida. Por favor, escolha novamente. ║");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
                     System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
@@ -384,6 +412,7 @@ public class TurismoMain {
                 System.out.println("║ 2. Adicionar Funcionário                      ║");
                 System.out.println("║ 3. Editar Funcionário                         ║");
                 System.out.println("║ 4. Remover Funcionário                        ║");
+                System.out.println("║ 5. Voltar                                     ║");
                 System.out.println("║                                               ║");
                 System.out.println("║ Escolha uma opção:                            ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
@@ -412,8 +441,12 @@ public class TurismoMain {
                 case 4:
                     removerFuncionario(scanner, funcionarioView);
                     return;
+                case 5:
+                    return; 
                 default:
-                    System.out.println("Opção inválida. Por favor, escolha novamente.");
+                    System.out.println("║                Opção inválida.                ║");
+                    System.out.println("║         Por favor, escolha novamente.         ║");
+                    System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
     }
@@ -429,21 +462,123 @@ public class TurismoMain {
         System.out.println("Operação de Renovação de Empréstimos");
     }
 
+    //Bloco funções reserva
+
     private static void fazerReserva(Scanner scanner) {
-        System.out.println("Operação de Reserva de Viagens");
+        System.out.println("╔═══════ Operação de Reserva de Viagens ════════╗");
+        System.out.println("║                                               ║");
+        System.out.print("║ Id do Cliente: ");
+        long idCliente = scanner.nextInt();
+        System.out.print("║ Id de Viagem: ");
+        long idPacote = scanner.nextLong();
+        System.out.print("║ Id funcionario: ");
+        long idFuncionario = scanner.nextLong();
+        Funcionario funcionario = new Funcionario("Gio",8,2,2,"gio@gmail",LocalDate.parse("2002-05-15"));
+        System.out.print("║ Id da Reserva: ");
+        long idReserva = scanner.nextLong();
+        scanner.nextLine();
+        try {
+            clienteController.reservar(clienteController.obterClientePorId(idCliente),turismoController.obterReservavelporId(idPacote),funcionario,idReserva);
+            System.out.println("║                                               ║");
+            System.out.println("║         Viagem Reservada com sucesso!         ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+        } catch (ViagemCheiaException e) {
+            e.printStackTrace();
+        }
+    }
+   
+    private static void removerReserva(Scanner scanner) {
+        System.out.println("╔════════════════ Remover Reserva ══════════════╗");
+        System.out.println("║                                               ║");
+        System.out.print("║ Informe o Id da reserva: ");
+        long idReserva = scanner.nextLong();
+        Reserva reserva = clienteController.obterReservaPorId(idReserva);
+        scanner.nextLine();
+        System.out.println("║                                               ║");
+        System.out.print("║ Tem certeza que quer remover a reserva? (s/n) ");
+        String str = scanner.next();
+        switch (str){
+            case "s":
+                    clienteController.getReservas().remove(reserva);
+                    reserva.getCliente().getReservas().remove(reserva);
+                    reserva.getReserva().getReservas().remove(reserva);
+                System.out.println("║                                               ║");
+                System.out.println("║        Reserva Cancelada com sucesso!         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                return;
+            case "n":
+                System.out.println("║                                               ║");
+                System.out.println("║              Operação Cancelada               ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                return;
+            default:
+                System.out.println("║                                               ║");
+                System.out.println("║               Resposta Inválida               ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                return;
+        }
     }
 
-    // Métodos para adicionar, editar e remover viagens
-    private static void adicionarViagem(Scanner scanner) {
-        System.out.println("Operação de Adição de Viagem");
+    private static void editarReserva(Scanner scanner) {
+        System.out.println("╔═════════════════ Editar Reserva ══════════════╗");
+        System.out.println("║                                               ║");
+        System.out.print("║ Informe o Id da reserva: ");
+        long idReserva = scanner.nextLong();
+        Reserva reserva = clienteController.obterReservaPorId(idReserva);
+        System.out.println("║                                               ║");
+        System.out.print("║ Escolha o que alterar:                        ║");
+        int opcaoAlt = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("║ 1. Cliente                                    ║");
+        System.out.println("║ 2. Pacote                                     ║");
+        System.out.println("║ 3. Funcionario                                ║");
+        System.out.println("║                                               ║");
+        switch (opcaoAlt){
+            case 1:
+                System.out.print("║ Informe o Id do novo cliente: ");
+                long idNovoC = scanner.nextLong();
+                reserva.setCliente(clienteController.obterClientePorId(idNovoC));
+                System.out.println("║                                               ║");
+                System.out.println("║         Reserva Alterada com sucesso!         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                return;
+            case 2:
+                System.out.print("║ Informe o Id do novo pacote: ");
+                long idNovoP = scanner.nextLong();
+                reserva.setReserva(turismoController.obterReservavelporId(idNovoP));
+                System.out.println("║                                               ║");
+                System.out.println("║         Reserva Alterada com sucesso!         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                break;
+            case 3:
+                System.out.print("║ Informe o Id do novo funcionário: ");
+                long idNovoF = scanner.nextLong();
+                reserva.setFuncionario(funcionarioController.obterFuncionarioPorId(idNovoF));
+                System.out.println("║                                               ║");
+                System.out.println("║         Reserva Alterada com sucesso!         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+            default:
+            System.out.println("║                                               ║");
+            System.out.println("║       Entrada inválida, tente novamente!      ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+            return;
+        }
+
     }
 
-    private static void editarViagem(Scanner scanner) {
-        System.out.println("Operação de Edição de Viagem");
-    }
-
-    private static void removerViagem(Scanner scanner) {
-        System.out.println("Operação de Remoção de Viagem");
+    private static void acessarReserva(Scanner scanner) {
+        System.out.println("╔════════════════ Acessar Reserva ══════════════╗");
+        System.out.println("║                                               ║");
+        System.out.print("║ Informe o Id da reserva: ");
+        long idReserva = scanner.nextLong();
+        Reserva reserva = clienteController.obterReservaPorId(idReserva);
+        System.out.println("║                                               ║");
+        System.out.println("║ ID: "+ idReserva);
+        System.out.println("║ Id da Viagem: "+ reserva.getReserva().getId());
+        System.out.println("║ Id do Cliente: "+ reserva.getCliente().getId());
+        System.out.println("║ Id do Funcionário: "+ reserva.getFuncionario().getId());
+        System.out.println("║                                               ║");
+        System.out.println("╚═══════════════════════════════════════════════╝");
     }
 
     // Métodos para adicionar, editar e remover clientes
@@ -475,10 +610,10 @@ public class TurismoMain {
                 idValido = true;
             } catch (java.util.InputMismatchException e) {
                 System.out.println("║ ID inválido. Digite apenas números.");
-                scanner.next(); // Limpa o buffer
+                scanner.next(); 
             }
         }
-        scanner.nextLine(); // Limpa o buffer
+        scanner.nextLine();
 
         long telefone = 0;
         boolean telefoneValido = false;
@@ -486,10 +621,11 @@ public class TurismoMain {
             try {
                 System.out.print("║ Telefone: ");
                 telefone = scanner.nextLong();
+                scanner.nextLine();
                 telefoneValido = true;
             } catch (java.util.InputMismatchException e) {
                 System.out.println("║ Telefone inválido. Digite apenas números.");
-                scanner.next(); // Limpa o buffer
+                scanner.next(); 
             }
         }
 
@@ -517,7 +653,8 @@ public class TurismoMain {
             }
         }
 
-   
+        Cliente cliente = new Cliente(nome, documento, id, telefone, email, aniversario);
+        clienteController.listarClientes().add(cliente);
         System.out.println("║                                               ║");
         System.out.println("║         Cliente adicionado com sucesso!       ║");
         System.out.println("╚═══════════════════════════════════════════════╝");
@@ -545,7 +682,6 @@ public class TurismoMain {
             
             int opcaoEdicao = scanner.nextInt();
             scanner.nextLine();
-
             System.out.println("║                                               ║");
             switch (opcaoEdicao) {
                 case 1:
@@ -622,7 +758,7 @@ public class TurismoMain {
     // Métodos para adicionar, editar e remover funcionarios
     private static void adicionarFuncionario(Scanner scanner) {
         
-        System.out.println("╔════════════ Adicionar Funcionario ═══════════╗");
+        System.out.println("╔════════════ Adicionar Funcionário ═══════════╗");
     
         System.out.print("║ Nome: ");
         String nome = scanner.nextLine();
@@ -654,7 +790,7 @@ public class TurismoMain {
     }
 
     private static void editarFuncionario(Scanner scanner, FuncionarioView funcionarioView) {
-        System.out.println("╔═════════════ Editar Funcionario ══════════════╗");
+        System.out.println("╔═════════════ Editar Funcionário ══════════════╗");
         System.out.println("║                                               ║");
         System.out.print("║ Informe o ID do funcionário: ");
         long idFuncionarioEditar = scanner.nextLong();
@@ -707,20 +843,20 @@ public class TurismoMain {
                 funcionarioController.atualizarFuncionario(funcionarioParaEditar);
 
                 System.out.println("║                                               ║");
-                System.out.println("║      Funcionario editado com sucesso!         ║");
+                System.out.println("║      Funcionário editado com sucesso!         ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
             } else {
                 
                 System.out.println("║                                               ║");
-                System.out.println("║         Funcionario não encontrado.           ║");
+                System.out.println("║         Funcionário não encontrado.           ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
             }
     }
 
     private static void removerFuncionario(Scanner scanner, FuncionarioView funcionarioView) {
-        System.out.println("╔══════════════ Remover Funcionario ════════════╗");
+        System.out.println("╔══════════════ Remover Funcionário ════════════╗");
         System.out.println("║                                               ║");
-        System.out.print("║ Informe o ID do funcionario: ");
+        System.out.print("║ Informe o ID do funcionário: ");
         long idFuncionarioRemover = scanner.nextLong();
         scanner.nextLine(); 
         
@@ -735,7 +871,7 @@ public class TurismoMain {
             if (confirmacao.equals("s")) {
                 funcionarioController.removerFuncionario(funcionarioParaRemover);
                 System.out.println("║                                               ║");
-                System.out.println("║         Funcionario removido com sucesso!         ║");
+                System.out.println("║         Funcionário removido com sucesso!         ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
             } else {
                 System.out.println("║                                               ║");
@@ -744,9 +880,8 @@ public class TurismoMain {
             }
         } else { 
             System.out.println("║                                               ║");
-            System.out.println("║          Funcionario não encontrado.          ║");
+            System.out.println("║          Funcionário não encontrado.          ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
         }
     }
 }
-

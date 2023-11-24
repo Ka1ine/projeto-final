@@ -42,6 +42,4 @@ public class Destino {
     public void setAtracoes(String atracoes) {
         this.atracoes = atracoes;
     }
-
-    
 }

@@ -8,6 +8,7 @@ import turismo.models.Adm.Reserva;
 //Classe base para todos os pacotes, inclui atrações e acomodação
 public class Pacote implements Reservavel{
     private Destino destino;
+    private long idPacote;
     private LocalDate dataDisp;
     private int duracao;
     private int preco;
@@ -15,13 +16,13 @@ public class Pacote implements Reservavel{
     
     private String hotel;
     private CategoriaViagem categoria;
-    private ArrayList<Reserva<Reservavel>> reservas;
+    private ArrayList<Reserva> reservas;
     private int maxReservas;
-    private int codigo;
+    private long codigo;
     
     //Construtor
     public Pacote(Destino destino, LocalDate dataDisp, int duracao, int preco, ArrayList<atrativos> atrativos,
-    String hotel, CategoriaViagem categoria, int maxReservas, int codigo) {
+    String hotel, CategoriaViagem categoria, int maxReservas, long codigo) {
         this.destino = destino;
         this.dataDisp = dataDisp;
         this.duracao = duracao;
@@ -87,11 +88,11 @@ public class Pacote implements Reservavel{
     public void setCategoria(CategoriaViagem categoria) {
         this.categoria = categoria;
     }
-    public ArrayList<Reserva<Reservavel>> getReservas() {
+    public ArrayList<Reserva> getReservas() {
         return reservas;
     }
 
-    public void setReservas(ArrayList<Reserva<Reservavel>> reservas) {
+    public void setReservas(ArrayList<Reserva> reservas) {
         this.reservas = reservas;
     }    
     public int getMaxReservas() {
@@ -102,11 +103,11 @@ public class Pacote implements Reservavel{
         this.maxReservas = maxReservas;
     }    
 
-    public int getCodigo() {
+    public long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(long codigo) {
         this.codigo = codigo;
     }
     
@@ -117,6 +118,11 @@ public class Pacote implements Reservavel{
 
     public enum atrativos{
         piscina, passeio_guiado, pensao_completa, spa, pet_friendly 
+    }
+
+    @Override
+    public long getId() {
+      return this.codigo;
     }
 }
 

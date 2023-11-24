@@ -1,6 +1,5 @@
 package turismo.models.Pessoas;
 
-
 import java.time.LocalDate;
 
 //Além das funções de um funcionário normal também consegue cadastrar, remover e alterar pacotes
