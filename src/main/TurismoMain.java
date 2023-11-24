@@ -34,16 +34,18 @@ public class TurismoMain {
         FuncionarioView funcionarioView = new FuncionarioViewImpl(funcionarioController);
         // RelatorioView relatorioView = new RelatorioViewImpl(relatorioController);
 
-        //Objetos teste para facilitar nossa vida
-        Cliente clienteTeste = new Cliente("Jojo", 123,2,12, "jp@gmail.com", LocalDate.parse("2002-05-15"));
+        // Objetos teste para facilitar nossa vida
+        Cliente clienteTeste = new Cliente("Jojo", 123, 2, 12, "jp@gmail.com", LocalDate.parse("2002-05-15"));
         clienteController.adicionarCliente(clienteTeste);
-        Funcionario funcionarioTeste = new Funcionario("Trabalhador", 123,1,12, "jp@gmail.com", LocalDate.parse("2002-05-15"));
+        Funcionario funcionarioTeste = new Funcionario("Trabalhador", 123, 1, 12, "jp@gmail.com",
+                LocalDate.parse("2002-05-15"));
         funcionarioController.adicionarFuncionario(funcionarioTeste);
         Destino destinoTeste = new Destino("jacarei", Destino.CategoriaDestino.CIDADE, "velhos");
         ArrayList<Pacote.atrativos> atrativos = new ArrayList<>();
         atrativos.add(Pacote.atrativos.piscina);
         atrativos.add(Pacote.atrativos.spa);
-        Pacote pacoteTeste = new Pacote(destinoTeste, LocalDate.parse("2023-11-23"), 10, 100, atrativos , "Jacareí Palace", Pacote.CategoriaViagem.AVENTURA, 2, 1);
+        Pacote pacoteTeste = new Pacote(destinoTeste, LocalDate.parse("2023-11-23"), 10, 100, atrativos,
+                "Jacareí Palace", Pacote.CategoriaViagem.AVENTURA, 2, 1);
         turismoController.consultarViagensDisponiveis().add(pacoteTeste);
         Scanner scanner = new Scanner(System.in);
 
@@ -138,11 +140,11 @@ public class TurismoMain {
 
             switch (opcaoViagens) {
                 case 1:
-                    //acessar reserva
+                    // acessar reserva
                     acessarReserva(scanner);
                     break;
                 case 2:
-                    //criar reserva
+                    // criar reserva
                     fazerReserva(scanner);
                     break;
                 case 3:
@@ -161,9 +163,7 @@ public class TurismoMain {
                     System.out.println("╚═══════════════════════════════════════════════╝");
             }
         }
-    }    
-
-
+    }
 
     private static void gerenciamentoPacotes(Scanner scanner) {
         while (true) {
@@ -274,7 +274,7 @@ public class TurismoMain {
                     break;
                 case 2:
                     List<Pacote.CategoriaViagem> values = Arrays.asList(Pacote.CategoriaViagem.values());
-                    
+
                     int index = 1;
                     for (Pacote.CategoriaViagem item : values) {
                         System.out.printf("%d. %s\n", index, item.name());
@@ -363,9 +363,9 @@ public class TurismoMain {
         while (true) {
 
             System.out.println("╔════════════════ Menu do Gerente ══════════════╗");
-            
+
             if (cont == 0) {
-                System.out.print("║ Digite seu ID: ");  
+                System.out.print("║ Digite seu ID: ");
                 opcaoId = scanner.nextInt();
 
                 System.out.print("║ Digite sua senha: ");
@@ -374,8 +374,8 @@ public class TurismoMain {
 
             if (opcaoId == 1 && opcaoSenha == 123) {
                 cont++;
-                
-                if (cont == 10){
+
+                if (cont == 10) {
                     cont = 0;
                     System.out.println("║                                               ║");
                     System.out.println("║        Seu tempo de acesso acabou.            ║");
@@ -392,14 +392,14 @@ public class TurismoMain {
                 System.out.println("║                                               ║");
                 System.out.println("║ Escolha uma opção:                            ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
-            } else{
+            } else {
                 System.out.println("║                                               ║");
                 System.out.println("║                 Acesso negado.                ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
                 cont = 0;
                 return;
             }
-            
+
             int opcaoFuncionarios = scanner.nextInt();
             scanner.nextLine();
 
@@ -418,7 +418,7 @@ public class TurismoMain {
                     removerFuncionario(scanner, funcionarioView);
                     return;
                 case 5:
-                    return; 
+                    return;
                 default:
                     System.out.println("║                Opção inválida.                ║");
                     System.out.println("║         Por favor, escolha novamente.         ║");
@@ -488,22 +488,47 @@ public class TurismoMain {
             e.printStackTrace();
         }
     }
-   
+
     private static void removerReserva(Scanner scanner) {
         System.out.println("╔════════════════ Remover Reserva ══════════════╗");
         System.out.println("║                                               ║");
-        System.out.print("║ Informe o Id da reserva: ");
-        long idReserva = scanner.nextLong();
+        long idReserva;
+
+        try {
+            System.out.print("║ Informe o Id da reserva: ");
+            idReserva = scanner.nextLong();
+        } catch (java.util.InputMismatchException e) {
+            System.out.println("ID inválido. Digite apenas números.");
+            scanner.next(); // Limpa o buffer
+            return;
+        }
+
         Reserva reserva = clienteController.obterReservaPorId(idReserva);
         scanner.nextLine();
+
+        if (reserva == null) {
+            System.out.println("║ Reserva não encontrada.                       ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+            return;
+        }
+
         System.out.println("║                                               ║");
         System.out.print("║ Tem certeza que quer remover a reserva? (s/n) ");
-        String str = scanner.next();
-        switch (str){
+
+        String resposta;
+
+        try {
+            resposta = scanner.next();
+        } catch (java.util.InputMismatchException e) {
+            System.out.println("Resposta inválida. Digite 's' para sim ou 'n' para não.");
+            scanner.next(); // Limpa o buffer
+            return;
+        }
+        switch (resposta) {
             case "s":
-                    clienteController.getReservas().remove(reserva);
-                    reserva.getCliente().getReservas().remove(reserva);
-                    reserva.getReserva().getReservas().remove(reserva);
+                clienteController.getReservas().remove(reserva);
+                reserva.getCliente().getReservas().remove(reserva);
+                reserva.getReserva().getReservas().remove(reserva);
                 System.out.println("║                                               ║");
                 System.out.println("║        Reserva Cancelada com sucesso!         ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
@@ -525,45 +550,97 @@ public class TurismoMain {
         System.out.println("╔═════════════════ Editar Reserva ══════════════╗");
         System.out.println("║                                               ║");
         System.out.print("║ Informe o Id da reserva: ");
-        long idReserva = scanner.nextLong();
+
+        long idReserva;
+
+        try {
+            idReserva = scanner.nextLong();
+        } catch (java.util.InputMismatchException e) {
+            System.out.println("ID inválido. Digite apenas números.");
+            scanner.next(); // Limpa o buffer
+            return;
+        }
+
         Reserva reserva = clienteController.obterReservaPorId(idReserva);
+
+        if (reserva == null) {
+            System.out.println("║ Reserva não encontrada.                       ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+            return;
+        }
+
         System.out.println("║                                               ║");
         System.out.print("║ Escolha o que alterar:                        ║");
-        int opcaoAlt = scanner.nextInt();
-        scanner.nextLine();
+
+        int opcaoAlt;
+
+        try {
+            opcaoAlt = scanner.nextInt();
+            scanner.nextLine();
+        } catch (java.util.InputMismatchException e) {
+            System.out.println("Opção inválida. Digite um número.");
+            scanner.next(); // Limpa o buffer
+            return;
+        }
         System.out.println("║ 1. Cliente                                    ║");
         System.out.println("║ 2. Pacote                                     ║");
         System.out.println("║ 3. Funcionario                                ║");
         System.out.println("║                                               ║");
-        switch (opcaoAlt){
+
+        switch (opcaoAlt) {
             case 1:
-                System.out.print("║ Informe o Id do novo cliente: ");
-                long idNovoC = scanner.nextLong();
+                long idNovoC;
+
+                try {
+                    System.out.print("║ Informe o Id do novo cliente: ");
+                    idNovoC = scanner.nextLong();
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("ID do cliente inválido. Digite apenas números.");
+                    scanner.next(); // Limpa o buffer
+                    return;
+                }
                 reserva.setCliente(clienteController.obterClientePorId(idNovoC));
                 System.out.println("║                                               ║");
                 System.out.println("║         Reserva Alterada com sucesso!         ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
                 return;
             case 2:
-                System.out.print("║ Informe o Id do novo pacote: ");
-                long idNovoP = scanner.nextLong();
+                long idNovoP;
+
+                try {
+                    System.out.print("║ Informe o Id do novo pacote: ");
+                    idNovoP = scanner.nextLong();
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("ID do pacote inválido. Digite apenas números.");
+                    scanner.next(); // Limpa o buffer
+                    return;
+                }
+
                 reserva.setReserva(turismoController.obterReservavelporId(idNovoP));
                 System.out.println("║                                               ║");
                 System.out.println("║         Reserva Alterada com sucesso!         ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
                 break;
             case 3:
-                System.out.print("║ Informe o Id do novo funcionário: ");
-                long idNovoF = scanner.nextLong();
+                long idNovoF;
+
+                try {
+                    System.out.print("║ Informe o Id do novo funcionário: ");
+                    idNovoF = scanner.nextLong();
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("ID do funcionário inválido. Digite apenas números.");
+                    scanner.next(); // Limpa o buffer
+                    return;
+                }
                 reserva.setFuncionario(funcionarioController.obterFuncionarioPorId(idNovoF));
                 System.out.println("║                                               ║");
                 System.out.println("║         Reserva Alterada com sucesso!         ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
             default:
-            System.out.println("║                                               ║");
-            System.out.println("║       Entrada inválida, tente novamente!      ║");
-            System.out.println("╚═══════════════════════════════════════════════╝");
-            return;
+                System.out.println("║                                               ║");
+                System.out.println("║       Entrada inválida, tente novamente!      ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                return;
         }
 
     }
@@ -601,7 +678,7 @@ public class TurismoMain {
         while (!documentoValido) {
             try {
                 System.out.print("║ Documento: ");
-                documento = scanner.nextLong(); 
+                documento = scanner.nextLong();
                 documentoValido = true;
             } catch (java.util.InputMismatchException e) {
                 System.out.println("║ Documento inválido. Digite apenas números.");
@@ -621,6 +698,7 @@ public class TurismoMain {
                 }
             } catch (java.util.InputMismatchException e) {
                 System.out.println("║ ID inválido. Digite apenas números.");
+                scanner.next();
                 scanner.next(); 
             }
         }
@@ -636,6 +714,7 @@ public class TurismoMain {
                 telefoneValido = true;
             } catch (java.util.InputMismatchException e) {
                 System.out.println("║ Telefone inválido. Digite apenas números.");
+                scanner.next();
                 scanner.next(); 
             }
         }
@@ -690,7 +769,7 @@ public class TurismoMain {
             System.out.println("║ 5. Aniversário                                ║");
             System.out.println("║                                               ║");
             System.out.print("║ O que deseja editar: ");
-            
+
             int opcaoEdicao = scanner.nextInt();
             scanner.nextLine();
             System.out.println("║                                               ║");
@@ -700,20 +779,59 @@ public class TurismoMain {
                     clienteParaEditar.setNome(scanner.nextLine());
                     break;
                 case 2:
-                    System.out.print("║ Novo Documento: ");
-                    clienteParaEditar.setDocumento(scanner.nextLong());
+                    long novoDocumento;
+                    try {
+                        System.out.print("║ Novo Documento: ");
+                        novoDocumento = scanner.nextLong();
+                    } catch (java.util.InputMismatchException e) {
+                        System.out.println("Documento inválido. Digite apenas números.");
+                        scanner.next(); // Limpa o buffer
+                        return;
+                    }
+                    clienteParaEditar.setDocumento(novoDocumento);
                     break;
                 case 3:
-                    System.out.print("║ Novo Telefone: ");
-                    clienteParaEditar.setTelefone(scanner.nextLong());
+                    long novoTelefone;
+                    try {
+                        System.out.print("║ Novo Telefone: ");
+                        novoTelefone = scanner.nextLong();
+                    } catch (java.util.InputMismatchException e) {
+                        System.out.println("Telefone inválido. Digite apenas números.");
+                        scanner.next(); // Limpa o buffer
+                        return;
+                    }
+                    clienteParaEditar.setTelefone(novoTelefone);
                     break;
                 case 4:
-                    System.out.print("║ Novo E-mail: ");
-                    clienteParaEditar.setEmail(scanner.nextLine());
+                    String novoEmail = "";
+                    boolean emailValido = false;
+                    while (!emailValido) {
+                        try {
+                            System.out.print("║ Novo E-mail: ");
+                            novoEmail = scanner.nextLine();
+
+                            // Adiciona a validação do e-mail usando uma expressão regular
+                            if (novoEmail.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+                                emailValido = true;
+                            } else {
+                                throw new IllegalArgumentException("E-mail inválido. Digite um e-mail válido.");
+                            }
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                    clienteParaEditar.setEmail(novoEmail);
                     break;
                 case 5:
-                    System.out.print("║ Nova Data de Aniversário (AAAA-MM-DD): ");
-                    clienteParaEditar.setAniversario(LocalDate.parse(scanner.nextLine()));
+                    LocalDate novoAniversario;
+                    try {
+                        System.out.print("║ Nova Data de Aniversário (AAAA-MM-DD): ");
+                        novoAniversario = LocalDate.parse(scanner.nextLine());
+                    } catch (java.time.format.DateTimeParseException e) {
+                        System.out.println("Data de aniversário inválida. Digite no formato correto (AAAA-MM-DD).");
+                        return;
+                    }
+                    clienteParaEditar.setAniversario(novoAniversario);
                     break;
                 default:
                     System.out.println("║                                               ║");
@@ -721,17 +839,17 @@ public class TurismoMain {
                     System.out.println("╚═══════════════════════════════════════════════╝");
                     return;
             }
-                clienteController.atualizarCliente(clienteParaEditar);
+            clienteController.atualizarCliente(clienteParaEditar);
 
-                System.out.println("║                                               ║");
-                System.out.println("║        Cliente editado com sucesso!           ║");
-                System.out.println("╚═══════════════════════════════════════════════╝");
-            } else {
-                
-                System.out.println("║                                               ║");
-                System.out.println("║           Cliente não encontrado.             ║");
-                System.out.println("╚═══════════════════════════════════════════════╝");
-            }
+            System.out.println("║                                               ║");
+            System.out.println("║        Cliente editado com sucesso!           ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+        } else {
+
+            System.out.println("║                                               ║");
+            System.out.println("║           Cliente não encontrado.             ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+        }
     }
 
     private static void removerCliente(Scanner scanner, ClienteView clienteView) {
@@ -739,16 +857,16 @@ public class TurismoMain {
         System.out.println("║                                               ║");
         System.out.print("║ Informe o ID do cliente: ");
         long idClienteRemover = scanner.nextLong();
-        scanner.nextLine(); 
-        
+        scanner.nextLine();
+
         Cliente clienteParaRemover = clienteController.obterClientePorId(idClienteRemover);
-        
+
         if (clienteParaRemover != null) {
             clienteView.mostrarDetalhesMembro(clienteParaRemover);
             System.out.println("║                                               ║");
             System.out.print("║ Tem certeza que deseja remover? (s/n):");
             String confirmacao = scanner.nextLine().toLowerCase();
-        
+
             if (confirmacao.equals("s")) {
                 clienteController.removerCliente(clienteParaRemover);
                 System.out.println("║                                               ║");
@@ -759,7 +877,7 @@ public class TurismoMain {
                 System.out.println("║               Remoção cancelada.              ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
             }
-        } else { 
+        } else {
             System.out.println("║                                               ║");
             System.out.println("║            Cliente não encontrado.            ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
@@ -768,15 +886,15 @@ public class TurismoMain {
 
     // Métodos para adicionar, editar e remover funcionarios
     private static void adicionarFuncionario(Scanner scanner) {
-        
+
         System.out.println("╔════════════ Adicionar Funcionário ═══════════╗");
-    
+
         System.out.print("║ Nome: ");
         String nome = scanner.nextLine();
-    
+
         System.out.print("║ Documento: ");
         long documento = scanner.nextLong();
-    
+
         long id = 0;
         boolean idValido = false;
         while (!idValido) {
@@ -789,23 +907,56 @@ public class TurismoMain {
                 }
             } catch (java.util.InputMismatchException e) {
                 System.out.println("║ ID inválido. Digite apenas números.");
-                scanner.next(); 
+                scanner.next();
             }
         }
         scanner.nextLine();
-    
-        System.out.print("║ Telefone: ");
-        long telefone = scanner.nextLong();
-    
-        System.out.print("║ E-mail: ");
-        String email = scanner.nextLine();
-        scanner.nextLine();
-    
-        System.out.print("║ Aniversário (AAAA-MM-DD): ");
-        LocalDate aniversario = LocalDate.parse(scanner.nextLine());
-    
+
+        long telefone = 0;
+        boolean telefoneValido = false;
+        while (!telefoneValido) {
+            try {
+                System.out.print("║ Telefone: ");
+                telefone = scanner.nextLong();
+                telefoneValido = true;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("║ Telefone inválido. Digite apenas números.");
+                scanner.next(); // Limpa o buffer
+            }
+        }
+        scanner.nextLine(); // Limpa o buffer
+
+        String email = "";
+        boolean emailValido = false;
+        while (!emailValido) {
+            try {
+                System.out.print("║ E-mail: ");
+                email = scanner.nextLine();
+                // Adiciona a validação do e-mail usando uma expressão regular
+                if (email.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+                    emailValido = true;
+                } else {
+                    throw new IllegalArgumentException("║ E-mail inválido. Digite um e-mail válido.");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        LocalDate aniversario = null;
+        boolean dataValida = false;
+        while (!dataValida) {
+            try {
+                System.out.print("║ Aniversário (AAAA-MM-DD): ");
+                aniversario = LocalDate.parse(scanner.nextLine());
+                dataValida = true;
+            } catch (java.time.format.DateTimeParseException e) {
+                System.out.println("║ Data de aniversário inválida. Digite no formato correto (AAAA-MM-DD).");
+            }
+        }
+
         Funcionario novoFuncionario = new Funcionario(nome, documento, id, telefone, email, aniversario);
-    
+
         funcionarioController.adicionarFuncionario(novoFuncionario);
 
         System.out.println("║                                               ║");
@@ -832,10 +983,17 @@ public class TurismoMain {
             System.out.println("║ 5. Aniversário                                ║");
             System.out.println("║                                               ║");
             System.out.print("║ O que deseja editar: ");
-            
-            int opcaoEdicao = scanner.nextInt();
-            scanner.nextLine();
 
+            int opcaoEdicao;
+
+            try {
+                opcaoEdicao = scanner.nextInt();
+                scanner.nextLine();
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Opção inválida. Digite um número.");
+                scanner.next(); // Limpa o buffer
+                return;
+            }
             System.out.println("║                                               ║");
             switch (opcaoEdicao) {
                 case 1:
@@ -843,20 +1001,54 @@ public class TurismoMain {
                     funcionarioParaEditar.setNome(scanner.nextLine());
                     break;
                 case 2:
-                    System.out.print("║ Novo Documento: ");
-                    funcionarioParaEditar.setDocumento(scanner.nextLong());
+                    try {
+                        System.out.print("║ Novo Documento: ");
+                        funcionarioParaEditar.setDocumento(scanner.nextLong());
+                    } catch (java.util.InputMismatchException e) {
+                        System.out.println("Documento inválido. Digite apenas números.");
+                        scanner.next(); // Limpa o buffer
+                        return;
+                    }
                     break;
                 case 3:
-                    System.out.print("║ Novo Telefone: ");
-                    funcionarioParaEditar.setTelefone(scanner.nextLong());
+                    try {
+                        System.out.print("║ Novo Telefone: ");
+                        funcionarioParaEditar.setTelefone(scanner.nextLong());
+                    } catch (java.util.InputMismatchException e) {
+                        System.out.println("Telefone inválido. Digite apenas números.");
+                        scanner.next(); // Limpa o buffer
+                        return;
+                    }
                     break;
                 case 4:
-                    System.out.print("║ Novo E-mail: ");
-                    funcionarioParaEditar.setEmail(scanner.nextLine());
+                    String novoEmail = "";
+                    boolean emailValido = false;
+                    while (!emailValido) {
+                        try {
+                            System.out.print("║ Novo E-mail: ");
+                            novoEmail = scanner.nextLine();
+                            // Adiciona a validação do e-mail usando uma expressão regular
+                            if (novoEmail.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+                                emailValido = true;
+                            } else {
+                                throw new IllegalArgumentException("E-mail inválido. Digite um e-mail válido.");
+                            }
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
+                    funcionarioParaEditar.setEmail(novoEmail);
                     break;
                 case 5:
-                    System.out.print("║ Nova Data de Aniversário (AAAA-MM-DD): ");
-                    funcionarioParaEditar.setAniversario(LocalDate.parse(scanner.nextLine()));
+                    LocalDate novoAniversario;
+                    try {
+                        System.out.print("║ Nova Data de Aniversário (AAAA-MM-DD): ");
+                        novoAniversario = LocalDate.parse(scanner.nextLine());
+                    } catch (java.time.format.DateTimeParseException e) {
+                        System.out.println("Data de aniversário inválida. Digite no formato correto (AAAA-MM-DD).");
+                        return;
+                    }
+                    funcionarioParaEditar.setAniversario(novoAniversario);
                     break;
                 default:
                     System.out.println("║                                               ║");
@@ -864,17 +1056,17 @@ public class TurismoMain {
                     System.out.println("╚═══════════════════════════════════════════════╝");
                     return;
             }
-                funcionarioController.atualizarFuncionario(funcionarioParaEditar);
+            funcionarioController.atualizarFuncionario(funcionarioParaEditar);
 
-                System.out.println("║                                               ║");
-                System.out.println("║      Funcionário editado com sucesso!         ║");
-                System.out.println("╚═══════════════════════════════════════════════╝");
-            } else {
-                
-                System.out.println("║                                               ║");
-                System.out.println("║         Funcionário não encontrado.           ║");
-                System.out.println("╚═══════════════════════════════════════════════╝");
-            }
+            System.out.println("║                                               ║");
+            System.out.println("║      Funcionário editado com sucesso!         ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+        } else {
+
+            System.out.println("║                                               ║");
+            System.out.println("║         Funcionário não encontrado.           ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+        }
     }
 
     private static void removerFuncionario(Scanner scanner, FuncionarioView funcionarioView) {
@@ -882,16 +1074,16 @@ public class TurismoMain {
         System.out.println("║                                               ║");
         System.out.print("║ Informe o ID do funcionário: ");
         long idFuncionarioRemover = scanner.nextLong();
-        scanner.nextLine(); 
-        
+        scanner.nextLine();
+
         Funcionario funcionarioParaRemover = funcionarioController.obterFuncionarioPorId(idFuncionarioRemover);
-        
+
         if (funcionarioParaRemover != null) {
             funcionarioView.mostrarDetalhesFuncionario(funcionarioParaRemover);
             System.out.println("║                                               ║");
             System.out.print("║ Tem certeza que deseja remover? (s/n):");
             String confirmacao = scanner.nextLine().toLowerCase();
-        
+
             if (confirmacao.equals("s")) {
                 funcionarioController.removerFuncionario(funcionarioParaRemover);
                 System.out.println("║                                               ║");
@@ -902,7 +1094,7 @@ public class TurismoMain {
                 System.out.println("║               Remoção cancelada.              ║");
                 System.out.println("╚═══════════════════════════════════════════════╝");
             }
-        } else { 
+        } else {
             System.out.println("║                                               ║");
             System.out.println("║          Funcionário não encontrado.          ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
