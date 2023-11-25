@@ -60,8 +60,7 @@ public class TurismoMain {
             System.out.println("║ Escolha uma opção:                            ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
 
-            int opcao = scanner.nextInt();
-            scanner.nextLine();
+            int opcao = inputInt(scanner);
 
             switch (opcao) {
                 case 1:
@@ -74,12 +73,13 @@ public class TurismoMain {
                     menuAdministracaoFuncionarios(scanner, funcionarioView);
                     break;
                 case 4:
-                    System.out.println("║                                               ║");
+                    System.out.println("╔═══════════════════════════════════════════════╗");
                     System.out.println("║          Saindo do menu. Até logo!            ║");
                     System.out.println("╚═══════════════════════════════════════════════╝");
                     scanner.close();
                     return;
                 default:
+                    System.out.println("╔═══════════════════════════════════════════════╗");
                     System.out.println("║                Opção inválida.                ║");
                     System.out.println("║         Por favor, escolha novamente.         ║");
                     System.out.println("╚═══════════════════════════════════════════════╝");
@@ -99,10 +99,9 @@ public class TurismoMain {
             System.out.println("║ Escolha uma opção:                            ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
 
-            int opcaoViagens = scanner.nextInt();
-            scanner.nextLine();
+            int opcao = inputInt(scanner);
 
-            switch (opcaoViagens) {
+            switch (opcao) {
                 case 1:
                     menuGerenciamentoListagemPacotes(scanner, turismoView);
                     break;
@@ -135,10 +134,9 @@ public class TurismoMain {
             System.out.println("║ Escolha uma opção:                            ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
 
-            int opcaoViagens = scanner.nextInt();
-            scanner.nextLine();
+            int opcao = inputInt(scanner);
 
-            switch (opcaoViagens) {
+            switch (opcao) {
                 case 1:
                     // acessar reserva
                     acessarReserva(scanner);
@@ -177,10 +175,9 @@ public class TurismoMain {
             System.out.println("║ Escolha uma opção:                            ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
 
-            int opcaoViagens = scanner.nextInt();
-            scanner.nextLine();
+            int opcao = inputInt(scanner);
 
-            switch (opcaoViagens) {
+            switch (opcao) {
                 case 1:
                     turismoController.addPacote(scanner);
                     break;
@@ -211,10 +208,9 @@ public class TurismoMain {
             System.out.println("║ Escolha uma opção:                            ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
 
-            int opcaoFiltro = scanner.nextInt();
-            scanner.nextLine();
+            int opcao = inputInt(scanner);
 
-            switch (opcaoFiltro) {
+            switch (opcao) {
                 case 1:
                     List<? extends Pacote> viagens = turismoController.consultarViagensDisponiveis();
                     turismoView.mostrarViagensDisponiveis(viagens);
@@ -244,12 +240,11 @@ public class TurismoMain {
             System.out.println("║ 4. Listar Pacotes                             ║");
             System.out.println("║ 5. Voltar                                     ║");
             System.out.println("║                                               ║");
-            System.out.print("║ Escolha uma opção: ");
-            int opcaoFiltro = scanner.nextInt();
-            scanner.nextLine();
+            System.out.print  ("║ Escolha uma opção: ");
+            int opcao = inputInt(scanner);
             System.out.println("╚═══════════════════════════════════════════════╝");
 
-            switch (opcaoFiltro) {
+            switch (opcao) {
                 case 1:
                     HashSet<String> set = new HashSet<>();
 
@@ -268,7 +263,7 @@ public class TurismoMain {
                     System.out.println("║                                               ║");
                     
                     System.out.print("║ Selecione o destino: ");
-                    int valorDestino = menuValorFiltro(scanner);
+                    int valorDestino = inputInt(scanner);
                     viagens.removeIf(p -> (p.getDestino().getNome() != set.toArray()[valorDestino - 1]));
                     System.out.println("╚═══════════════════════════════════════════════╝");
                     break;
@@ -284,12 +279,12 @@ public class TurismoMain {
                     System.out.println();
                     System.out.println();
                     System.out.print("║ Selecione a categoria: ");
-                    int valorCategoria = menuValorFiltro(scanner);
+                    int valorCategoria = inputInt(scanner);
                     viagens.removeIf(p -> (p.getCategoria() != values.toArray()[valorCategoria - 1]));
                     break;
                 case 3:
                     System.out.print("║ Digite o preço máximo: ");
-                    int valorPreco = menuValorFiltro(scanner);
+                    int valorPreco = inputInt(scanner);
                     viagens.removeIf(p -> (p.getPreco() > valorPreco));
                     break;
                 case 4:
@@ -309,12 +304,6 @@ public class TurismoMain {
         }
     }
 
-    private static int menuValorFiltro(Scanner scanner) {
-        int opcaoFiltro = scanner.nextInt();
-        scanner.nextLine();
-        return opcaoFiltro;
-    }
-
     private static void menuGerenciamentoClientes(Scanner scanner, ClienteView clienteView) {
         while (true) {
             System.out.println("╔═══════════════ Menu de Clientes ══════════════╗");
@@ -328,8 +317,7 @@ public class TurismoMain {
             System.out.println("║ Escolha uma opção:                            ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
 
-            int opcaoClientes = scanner.nextInt();
-            scanner.nextLine();
+            int opcaoClientes = inputInt(scanner);
 
             switch (opcaoClientes) {
                 case 1:
@@ -366,10 +354,10 @@ public class TurismoMain {
 
             if (cont == 0) {
                 System.out.print("║ Digite seu ID: ");
-                opcaoId = scanner.nextInt();
+                opcaoId = inputInt(scanner);
 
                 System.out.print("║ Digite sua senha: ");
-                opcaoSenha = scanner.nextInt();
+                opcaoSenha = inputInt(scanner);
             }
 
             if (opcaoId == 1 && opcaoSenha == 123) {
@@ -400,8 +388,7 @@ public class TurismoMain {
                 return;
             }
 
-            int opcaoFuncionarios = scanner.nextInt();
-            scanner.nextLine();
+            int opcaoFuncionarios = inputInt(scanner);
 
             switch (opcaoFuncionarios) {
                 case 1:
@@ -434,12 +421,12 @@ public class TurismoMain {
         System.out.println("╔═══════ Operação de Reserva de Pacote ═════════╗");
         System.out.println("║                                               ║");
         System.out.print  ("║ Id do Cliente: ");
-        cliente = clienteController.obterClientePorId(scanner.nextInt());
+        cliente = clienteController.obterClientePorId(inputInt(scanner));
         while(cliente == null){
             System.out.println("║  Cliente não encontrado, digite um ID válido  ║");
             System.out.println("║                                               ║");
             System.out.print  ("║ Id do Cliente: ");
-            cliente = clienteController.obterClientePorId(scanner.nextInt());
+            cliente = clienteController.obterClientePorId(inputInt(scanner));
         }
         
         System.out.print("║ Id do pacote: ");
@@ -498,8 +485,9 @@ public class TurismoMain {
             System.out.print("║ Informe o Id da reserva: ");
             idReserva = scanner.nextLong();
         } catch (java.util.InputMismatchException e) {
-            System.out.println("ID inválido. Digite apenas números.");
-            scanner.next(); // Limpa o buffer
+            System.out.println("║      ID inválido. Digite apenas números.      ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+            scanner.next();
             return;
         }
 
@@ -513,7 +501,7 @@ public class TurismoMain {
         }
 
         System.out.println("║                                               ║");
-        System.out.print("║ Tem certeza que quer remover a reserva? (s/n) ");
+        System.out.print  ("║ Tem certeza que quer remover a reserva? (s/n) ");
 
         String resposta;
 
@@ -521,7 +509,7 @@ public class TurismoMain {
             resposta = scanner.next();
         } catch (java.util.InputMismatchException e) {
             System.out.println("Resposta inválida. Digite 's' para sim ou 'n' para não.");
-            scanner.next(); // Limpa o buffer
+            scanner.next();
             return;
         }
         switch (resposta) {
@@ -549,7 +537,7 @@ public class TurismoMain {
     private static void editarReserva(Scanner scanner) {
         System.out.println("╔═════════════════ Editar Reserva ══════════════╗");
         System.out.println("║                                               ║");
-        System.out.print("║ Informe o Id da reserva: ");
+        System.out.print  ("║ Informe o Id da reserva: ");
 
         long idReserva;
 
@@ -557,7 +545,7 @@ public class TurismoMain {
             idReserva = scanner.nextLong();
         } catch (java.util.InputMismatchException e) {
             System.out.println("ID inválido. Digite apenas números.");
-            scanner.next(); // Limpa o buffer
+            scanner.next();
             return;
         }
 
@@ -570,16 +558,15 @@ public class TurismoMain {
         }
 
         System.out.println("║                                               ║");
-        System.out.print("║ Escolha o que alterar:                        ║");
+        System.out.print  ("║ Escolha o que alterar:                        ║");
 
         int opcaoAlt;
 
         try {
-            opcaoAlt = scanner.nextInt();
-            scanner.nextLine();
+            opcaoAlt = inputInt(scanner);
         } catch (java.util.InputMismatchException e) {
             System.out.println("Opção inválida. Digite um número.");
-            scanner.next(); // Limpa o buffer
+            scanner.next();
             return;
         }
         System.out.println("║ 1. Cliente                                    ║");
@@ -596,7 +583,7 @@ public class TurismoMain {
                     idNovoC = scanner.nextLong();
                 } catch (java.util.InputMismatchException e) {
                     System.out.println("ID do cliente inválido. Digite apenas números.");
-                    scanner.next(); // Limpa o buffer
+                    scanner.next();
                     return;
                 }
                 reserva.setCliente(clienteController.obterClientePorId(idNovoC));
@@ -612,7 +599,7 @@ public class TurismoMain {
                     idNovoP = scanner.nextLong();
                 } catch (java.util.InputMismatchException e) {
                     System.out.println("ID do pacote inválido. Digite apenas números.");
-                    scanner.next(); // Limpa o buffer
+                    scanner.next();
                     return;
                 }
 
@@ -629,7 +616,7 @@ public class TurismoMain {
                     idNovoF = scanner.nextLong();
                 } catch (java.util.InputMismatchException e) {
                     System.out.println("ID do funcionário inválido. Digite apenas números.");
-                    scanner.next(); // Limpa o buffer
+                    scanner.next();
                     return;
                 }
                 reserva.setFuncionario(funcionarioController.obterFuncionarioPorId(idNovoF));
@@ -682,7 +669,7 @@ public class TurismoMain {
                 documentoValido = true;
             } catch (java.util.InputMismatchException e) {
                 System.out.println("║ Documento inválido. Digite apenas números.");
-                scanner.next(); // Limpa o buffer
+                scanner.next();
             }
         }
 
@@ -770,8 +757,7 @@ public class TurismoMain {
             System.out.println("║                                               ║");
             System.out.print("║ O que deseja editar: ");
 
-            int opcaoEdicao = scanner.nextInt();
-            scanner.nextLine();
+            int opcaoEdicao = inputInt(scanner);
             System.out.println("║                                               ║");
             switch (opcaoEdicao) {
                 case 1:
@@ -785,7 +771,7 @@ public class TurismoMain {
                         novoDocumento = scanner.nextLong();
                     } catch (java.util.InputMismatchException e) {
                         System.out.println("Documento inválido. Digite apenas números.");
-                        scanner.next(); // Limpa o buffer
+                        scanner.next();
                         return;
                     }
                     clienteParaEditar.setDocumento(novoDocumento);
@@ -797,7 +783,7 @@ public class TurismoMain {
                         novoTelefone = scanner.nextLong();
                     } catch (java.util.InputMismatchException e) {
                         System.out.println("Telefone inválido. Digite apenas números.");
-                        scanner.next(); // Limpa o buffer
+                        scanner.next();
                         return;
                     }
                     clienteParaEditar.setTelefone(novoTelefone);
@@ -921,10 +907,10 @@ public class TurismoMain {
                 telefoneValido = true;
             } catch (java.util.InputMismatchException e) {
                 System.out.println("║ Telefone inválido. Digite apenas números.");
-                scanner.next(); // Limpa o buffer
+                scanner.next();
             }
         }
-        scanner.nextLine(); // Limpa o buffer
+        scanner.nextLine();
 
         String email = "";
         boolean emailValido = false;
@@ -987,11 +973,10 @@ public class TurismoMain {
             int opcaoEdicao;
 
             try {
-                opcaoEdicao = scanner.nextInt();
-                scanner.nextLine();
+                opcaoEdicao = inputInt(scanner);
             } catch (java.util.InputMismatchException e) {
                 System.out.println("Opção inválida. Digite um número.");
-                scanner.next(); // Limpa o buffer
+                scanner.next();
                 return;
             }
             System.out.println("║                                               ║");
@@ -1006,7 +991,7 @@ public class TurismoMain {
                         funcionarioParaEditar.setDocumento(scanner.nextLong());
                     } catch (java.util.InputMismatchException e) {
                         System.out.println("Documento inválido. Digite apenas números.");
-                        scanner.next(); // Limpa o buffer
+                        scanner.next();
                         return;
                     }
                     break;
@@ -1016,7 +1001,7 @@ public class TurismoMain {
                         funcionarioParaEditar.setTelefone(scanner.nextLong());
                     } catch (java.util.InputMismatchException e) {
                         System.out.println("Telefone inválido. Digite apenas números.");
-                        scanner.next(); // Limpa o buffer
+                        scanner.next();
                         return;
                     }
                     break;
@@ -1099,5 +1084,24 @@ public class TurismoMain {
             System.out.println("║          Funcionário não encontrado.          ║");
             System.out.println("╚═══════════════════════════════════════════════╝");
         }
+    }
+
+    public static int inputInt(Scanner scanner){
+        int opcao = 0;
+        boolean condicao = true;
+        do {
+            try {
+                opcao = scanner.nextInt();
+                scanner.nextLine();
+                condicao = false;
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("╔═══════════════════════════════════════════════╗");
+                System.out.println("║                Opção inválida.                ║");
+                System.out.println("║         Por favor, escolha novamente.         ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
+                scanner.nextLine();
+            }
+        } while (condicao);
+        return opcao;
     }
 }
