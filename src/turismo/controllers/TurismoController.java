@@ -14,4 +14,5 @@ public interface TurismoController {
     public void addPacote(Scanner scanner);
     public void removerPacote(Scanner scanner);
     public void editarPacote(Scanner scanner);
+    public Boolean idDisponivel(long id);
 }

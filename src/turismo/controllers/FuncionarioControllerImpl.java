@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import turismo.models.Pessoas.Funcionario;
+import turismo.models.Pessoas.Usuario;
 
 public class FuncionarioControllerImpl implements FuncionarioController {
     private List<Funcionario> funcionarios;
@@ -49,5 +50,16 @@ public class FuncionarioControllerImpl implements FuncionarioController {
     @Override
     public Funcionario buscarFuncionarioPorIdentificacao(String identificacao) {
         throw new UnsupportedOperationException("Unimplemented method 'buscarFuncionarioPorIdentificacao'");
+    }
+
+    @Override
+    public Boolean idDisponivel(long id)  {
+        for (Usuario user : funcionarios) {
+            if (user.getId() == id) {
+                // ID usado
+                return false;
+            }
+        }
+        return true;
     }
 }
