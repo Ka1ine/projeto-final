@@ -234,10 +234,13 @@ public class TurismoMain {
         while (true) {
             System.out.println("╔════════ Menu Gerenciamento de Filtros ════════╗");
             System.out.println("║                                               ║");
+            System.out.println("║ Adicione os filtros que deseja depois use a   ║");
+            System.out.println("║ opção 4                                       ║");
+            System.out.println("║                                               ║");
             System.out.println("║ 1. Adicionar Filtro de Destino                ║");
             System.out.println("║ 2. Adicionar Filtro de Categoria              ║");
             System.out.println("║ 3. Adicionar Filtro de Preço                  ║");
-            System.out.println("║ 4. Listar Pacotes                             ║");
+            System.out.println("║ 4. Listar Pacotes com os filtro selecionados  ║");
             System.out.println("║ 5. Voltar                                     ║");
             System.out.println("║                                               ║");
             System.out.print  ("║ Escolha uma opção: ");
@@ -261,11 +264,11 @@ public class TurismoMain {
                         indexDestino += 1;
                     }
                     System.out.println("║                                               ║");
-                    
                     System.out.print("║ Selecione o destino: ");
                     int valorDestino = inputInt(scanner);
                     viagens.removeIf(p -> (p.getDestino().getNome() != set.toArray()[valorDestino - 1]));
-                    System.out.println("╚═══════════════════════════════════════════════╝");
+                    System.out.println("║                                               ║");
+                    System.out.println("║ Filtro Adicionado                             ║");
                     break;
                 case 2:
                     List<Pacote.CategoriaViagem> values = Arrays.asList(Pacote.CategoriaViagem.values());
@@ -281,11 +284,14 @@ public class TurismoMain {
                     System.out.print("║ Selecione a categoria: ");
                     int valorCategoria = inputInt(scanner);
                     viagens.removeIf(p -> (p.getCategoria() != values.toArray()[valorCategoria - 1]));
+                    System.out.println("║ Filtro Adicionado                             ║");
                     break;
                 case 3:
                     System.out.print("║ Digite o preço máximo: ");
                     int valorPreco = inputInt(scanner);
                     viagens.removeIf(p -> (p.getPreco() > valorPreco));
+                    System.out.println("║ ID Pacotes disponíveis:                       ║");
+                    System.out.println("║ Filtro Adicionado                             ║");
                     break;
                 case 4:
                     System.out.println();
@@ -295,7 +301,6 @@ public class TurismoMain {
                     } else {
                         turismoView.mostrarViagensDisponiveis(viagens);
                     }
-                    
                     System.out.println();
                     System.out.println();
                     break;
