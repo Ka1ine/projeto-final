@@ -17,7 +17,7 @@ Este é um sistema de turismo desenvolvido em Java, utilizando conceitos de prog
 - João Novaes - 174494
 - Giovani Moreira - 000000
 - Eduardo Souza - 000000
-- Carol - 000000
+- Carol - 242934
 
 ## 🎉 Considerações Finais
 
