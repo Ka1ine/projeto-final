@@ -15,12 +15,13 @@ public class Pacote implements Reservavel{
     
     private String hotel;
     private CategoriaViagem categoria;
-    private ArrayList<Reserva<Reservavel>> reservas;
+    private ArrayList<Reserva> reservas;
     private int maxReservas;
+    private long codigo;
     
     //Construtor
     public Pacote(Destino destino, LocalDate dataDisp, int duracao, int preco, ArrayList<atrativos> atrativos,
-    String hotel, CategoriaViagem categoria, int maxReservas) {
+    String hotel, CategoriaViagem categoria, int maxReservas, long codigo) {
         this.destino = destino;
         this.dataDisp = dataDisp;
         this.duracao = duracao;
@@ -29,6 +30,7 @@ public class Pacote implements Reservavel{
         this.hotel = hotel;
         this.categoria = categoria;
         this.maxReservas = maxReservas;
+        this.codigo = codigo;
         this.reservas = new ArrayList<>();
     }
     //Getters e Setters    
@@ -85,11 +87,11 @@ public class Pacote implements Reservavel{
     public void setCategoria(CategoriaViagem categoria) {
         this.categoria = categoria;
     }
-    public ArrayList<Reserva<Reservavel>> getReservas() {
+    public ArrayList<Reserva> getReservas() {
         return reservas;
     }
 
-    public void setReservas(ArrayList<Reserva<Reservavel>> reservas) {
+    public void setReservas(ArrayList<Reserva> reservas) {
         this.reservas = reservas;
     }    
     public int getMaxReservas() {
@@ -99,6 +101,14 @@ public class Pacote implements Reservavel{
     public void setMaxReservas(int maxReservas) {
         this.maxReservas = maxReservas;
     }    
+
+    public long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(long codigo) {
+        this.codigo = codigo;
+    }
     
     //enum
     public static enum CategoriaViagem{
@@ -107,6 +117,11 @@ public class Pacote implements Reservavel{
 
     public enum atrativos{
         piscina, passeio_guiado, pensao_completa, spa, pet_friendly 
+    }
+
+    @Override
+    public long getId() {
+      return this.codigo;
     }
 }
 

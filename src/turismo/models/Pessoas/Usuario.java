@@ -1,6 +1,5 @@
 package turismo.models.Pessoas;
 
-
 import java.time.*;
 
 //Classe base de todos os os usuarios do sistema, incluindo clientes e funcionários
