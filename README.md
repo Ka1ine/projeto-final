@@ -15,7 +15,7 @@ Este é um sistema de turismo desenvolvido em Java, utilizando conceitos de prog
 
 - Yasmin Kaline - 241066
 - João Novaes - 174494
-- Giovani Moreira - 000000
+- Giovani Moreira - 186430
 - Eduardo Souza - 250267
 - Carol - 242934
 
