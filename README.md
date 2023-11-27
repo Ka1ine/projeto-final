@@ -14,8 +14,8 @@ Este é um sistema de turismo desenvolvido em Java, utilizando conceitos de prog
 ## 💻 Responsáveis pelo projeto
 
 - Yasmin Kaline - 241066
-- João Pedro de M. Novaes - 174494
-- Giovani Moreira - 000000
+- João Novaes - 174494
+- Giovani Moreira - 186430
 - Eduardo Souza - 250267
 - Carol - 242934
 
