@@ -27,25 +27,23 @@ public class TurismoMain {
         turismoController = new TurismoControllerImpl();
         clienteController = new ClienteControllerImpl();
         funcionarioController = new FuncionarioControllerImpl();
-        // relatorioController = new RelatorioControllerImpl();
 
         TurismoView turismoView = new TurismoViewImpl(turismoController);
         ClienteView clienteView = new ClienteViewImpl(clienteController);
         FuncionarioView funcionarioView = new FuncionarioViewImpl(funcionarioController);
-        // RelatorioView relatorioView = new RelatorioViewImpl(relatorioController);
 
-        // Objetos teste para facilitar nossa vida
-        Cliente clienteTeste = new Cliente("Jojo", 123, 2, 12, "jp@gmail.com", LocalDate.parse("2002-05-15"));
+        // Instancia teste para facilitar o uso do sistema
+        Cliente clienteTeste = new Cliente("Giovani", 123, 2, 981919191, "gio@gmail.com", LocalDate.parse("2002-05-15"));
         clienteController.adicionarCliente(clienteTeste);
-        Funcionario funcionarioTeste = new Funcionario("Trabalhador", 123, 1, 12, "jp@gmail.com",
+        Funcionario funcionarioTeste = new Funcionario("Novaes", 1234, 1, 983319292, "novaes@gmail.com",
                 LocalDate.parse("2002-05-15"));
         funcionarioController.adicionarFuncionario(funcionarioTeste);
-        Destino destinoTeste = new Destino("jacarei", Destino.CategoriaDestino.CIDADE, "velhos");
+        Destino destinoTeste = new Destino("Rio Grande do Norte", Destino.CategoriaDestino.CIDADE, "Comidas Nordestinas");
         ArrayList<Pacote.atrativos> atrativos = new ArrayList<>();
         atrativos.add(Pacote.atrativos.piscina);
         atrativos.add(Pacote.atrativos.spa);
         Pacote pacoteTeste = new Pacote(destinoTeste, LocalDate.parse("2023-11-23"), 10, 100, atrativos,
-                "Jacareí Palace", Pacote.CategoriaViagem.AVENTURA, 2, 1);
+                "Natal Palace", Pacote.CategoriaViagem.AVENTURA, 2, 1);
         turismoController.consultarViagensDisponiveis().add(pacoteTeste);
         Scanner scanner = new Scanner(System.in);
 
@@ -544,7 +542,7 @@ public class TurismoMain {
         try {
             idReserva = scanner.nextLong();
         } catch (java.util.InputMismatchException e) {
-            System.out.println("ID inválido. Digite apenas números.");
+            System.out.println("║ ID inválido. Digite apenas números.");
             scanner.next();
             return;
         }
@@ -565,7 +563,7 @@ public class TurismoMain {
         try {
             opcaoAlt = inputInt(scanner);
         } catch (java.util.InputMismatchException e) {
-            System.out.println("Opção inválida. Digite um número.");
+            System.out.println("║ Opção inválida. Digite um número.");
             scanner.next();
             return;
         }
@@ -582,7 +580,7 @@ public class TurismoMain {
                     System.out.print("║ Informe o Id do novo cliente: ");
                     idNovoC = scanner.nextLong();
                 } catch (java.util.InputMismatchException e) {
-                    System.out.println("ID do cliente inválido. Digite apenas números.");
+                    System.out.println("║ ID do cliente inválido. Digite apenas números.");
                     scanner.next();
                     return;
                 }
@@ -598,7 +596,7 @@ public class TurismoMain {
                     System.out.print("║ Informe o Id do novo pacote: ");
                     idNovoP = scanner.nextLong();
                 } catch (java.util.InputMismatchException e) {
-                    System.out.println("ID do pacote inválido. Digite apenas números.");
+                    System.out.println("║ ID do pacote inválido. Digite apenas números.");
                     scanner.next();
                     return;
                 }
@@ -615,7 +613,7 @@ public class TurismoMain {
                     System.out.print("║ Informe o Id do novo funcionário: ");
                     idNovoF = scanner.nextLong();
                 } catch (java.util.InputMismatchException e) {
-                    System.out.println("ID do funcionário inválido. Digite apenas números.");
+                    System.out.println("║ ID do funcionário inválido. Digite apenas números.");
                     scanner.next();
                     return;
                 }
@@ -770,7 +768,7 @@ public class TurismoMain {
                         System.out.print("║ Novo Documento: ");
                         novoDocumento = scanner.nextLong();
                     } catch (java.util.InputMismatchException e) {
-                        System.out.println("Documento inválido. Digite apenas números.");
+                        System.out.println("║ Documento inválido. Digite apenas números.");
                         scanner.next();
                         return;
                     }
@@ -782,7 +780,7 @@ public class TurismoMain {
                         System.out.print("║ Novo Telefone: ");
                         novoTelefone = scanner.nextLong();
                     } catch (java.util.InputMismatchException e) {
-                        System.out.println("Telefone inválido. Digite apenas números.");
+                        System.out.println("║ Telefone inválido. Digite apenas números.");
                         scanner.next();
                         return;
                     }
@@ -800,7 +798,7 @@ public class TurismoMain {
                             if (novoEmail.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
                                 emailValido = true;
                             } else {
-                                throw new IllegalArgumentException("E-mail inválido. Digite um e-mail válido.");
+                                throw new IllegalArgumentException("║ E-mail inválido. Digite um e-mail válido.");
                             }
                         } catch (IllegalArgumentException e) {
                             System.out.println(e.getMessage());
@@ -814,7 +812,7 @@ public class TurismoMain {
                         System.out.print("║ Nova Data de Aniversário (AAAA-MM-DD): ");
                         novoAniversario = LocalDate.parse(scanner.nextLine());
                     } catch (java.time.format.DateTimeParseException e) {
-                        System.out.println("Data de aniversário inválida. Digite no formato correto (AAAA-MM-DD).");
+                        System.out.println("║ Data de aniversário inválida. Digite no formato correto (AAAA-MM-DD).");
                         return;
                     }
                     clienteParaEditar.setAniversario(novoAniversario);
@@ -975,7 +973,7 @@ public class TurismoMain {
             try {
                 opcaoEdicao = inputInt(scanner);
             } catch (java.util.InputMismatchException e) {
-                System.out.println("Opção inválida. Digite um número.");
+                System.out.println("║ Opção inválida. Digite um número.");
                 scanner.next();
                 return;
             }
