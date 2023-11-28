@@ -31,7 +31,9 @@ public class ClienteControllerImpl implements ClienteController {
     public void reservar(Cliente cliente, Reservavel pacote, Funcionario funcionario,long id) throws ViagemCheiaException{
         try {
             if (pacote.getReservas().size() >= pacote.getMaxReservas()){
-                throw new ViagemCheiaException("Viagem ja lotada");
+                System.out.println("║               Pacote já lotado                ║");
+                System.out.println("║          Por favor, tente novamente.          ║");
+                System.out.println("╚═══════════════════════════════════════════════╝");
             }
             Reserva reserva = new Reserva(pacote, cliente, LocalDate.now() ,funcionario,id);
             cliente.getReservas().add(reserva);

@@ -232,6 +232,9 @@ public class TurismoMain {
         while (true) {
             System.out.println("╔════════ Menu Gerenciamento de Filtros ════════╗");
             System.out.println("║                                               ║");
+            System.out.println("║ Adicione os filtros que deseja e depois       ║");
+            System.out.println("║ selecione a opção 'Listar Pacotes'            ║");
+            System.out.println("║                                               ║");
             System.out.println("║ 1. Adicionar Filtro de Destino                ║");
             System.out.println("║ 2. Adicionar Filtro de Categoria              ║");
             System.out.println("║ 3. Adicionar Filtro de Preço                  ║");
@@ -263,6 +266,7 @@ public class TurismoMain {
                     System.out.print("║ Selecione o destino: ");
                     int valorDestino = inputInt(scanner);
                     viagens.removeIf(p -> (p.getDestino().getNome() != set.toArray()[valorDestino - 1]));
+                    System.out.println("║ Filtro adicionado com sucesso                 ║");
                     System.out.println("╚═══════════════════════════════════════════════╝");
                     break;
                 case 2:
@@ -279,11 +283,13 @@ public class TurismoMain {
                     System.out.print("║ Selecione a categoria: ");
                     int valorCategoria = inputInt(scanner);
                     viagens.removeIf(p -> (p.getCategoria() != values.toArray()[valorCategoria - 1]));
+                    System.out.println("║ Filtro adicionado com sucesso                 ║");
                     break;
                 case 3:
                     System.out.print("║ Digite o preço máximo: ");
                     int valorPreco = inputInt(scanner);
                     viagens.removeIf(p -> (p.getPreco() > valorPreco));
+                    System.out.println("║ Filtro adicionado com sucesso                 ║");
                     break;
                 case 4:
                     System.out.println();
@@ -358,7 +364,7 @@ public class TurismoMain {
                 opcaoSenha = inputInt(scanner);
             }
 
-            if (opcaoId == 1 && opcaoSenha == 123) {
+            if (opcaoId == 10 && opcaoSenha == 123) {
                 cont++;
 
                 if (cont == 10) {
